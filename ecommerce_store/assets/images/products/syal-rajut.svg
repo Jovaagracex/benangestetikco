@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400" viewBox="0 0 400 400">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FBF7F0"/>
+      <stop offset="100%" style="stop-color:#F5EDE0"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#C2724F;stop-opacity:0.15"/>
+      <stop offset="100%" style="stop-color:#C9A96A;stop-opacity:0.08"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="400" fill="url(#bg)"/>
+  <rect x="40" y="40" width="320" height="320" rx="20" fill="url(#accent)"/>
+  <text x="200" y="180" font-size="80" text-anchor="middle" fill="rgba(194,114,79,0.3)">🧶</text>
+  <text x="200" y="260" font-family="Georgia, serif" font-size="20" fill="#C2724F" text-anchor="middle" font-weight="bold">Syal Rajut</text>
+  <text x="200" y="290" font-family="Arial, sans-serif" font-size="14" fill="rgba(194,114,79,0.5)" text-anchor="middle">Handmade Premium</text>
+</svg>

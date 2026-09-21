@@ -1,0 +1,105 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="100%" height="100%">
+  <defs>
+    <linearGradient id="redPassBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#d32f2f"/>
+      <stop offset="50%" stop-color="#b71c1c"/>
+      <stop offset="100%" stop-color="#880e4f"/>
+    </linearGradient>
+    <linearGradient id="suitGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1e272e"/>
+      <stop offset="100%" stop-color="#0f171e"/>
+    </linearGradient>
+    <linearGradient id="skinGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#f8c291"/>
+      <stop offset="100%" stop-color="#e5b083"/>
+    </linearGradient>
+    <linearGradient id="tieGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#b71c1c"/>
+      <stop offset="100%" stop-color="#780000"/>
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="8" stdDeviation="6" flood-color="#000000" flood-opacity="0.35"/>
+    </filter>
+  </defs>
+
+  <!-- Official Pasfoto Red Background -->
+  <rect width="500" height="500" fill="url(#redPassBg)" rx="24"/>
+  
+  <!-- Subtle Background Pattern Grid -->
+  <g opacity="0.08" stroke="#ffffff" stroke-width="1">
+    <line x1="0" y1="50" x2="500" y2="50"/>
+    <line x1="0" y1="100" x2="500" y2="100"/>
+    <line x1="0" y1="150" x2="500" y2="150"/>
+    <line x1="0" y1="200" x2="500" y2="200"/>
+    <line x1="0" y1="250" x2="500" y2="250"/>
+    <line x1="0" y1="300" x2="500" y2="300"/>
+    <line x1="0" y1="350" x2="500" y2="350"/>
+    <line x1="0" y1="400" x2="500" y2="400"/>
+    <line x1="0" y1="450" x2="500" y2="450"/>
+    
+    <line x1="50" y1="0" x2="50" y2="500"/>
+    <line x1="100" y1="0" x2="100" y2="500"/>
+    <line x1="150" y1="0" x2="150" y2="500"/>
+    <line x1="200" y1="0" x2="200" y2="500"/>
+    <line x1="250" y1="0" x2="250" y2="500"/>
+    <line x1="300" y1="0" x2="300" y2="500"/>
+    <line x1="350" y1="0" x2="350" y2="500"/>
+    <line x1="400" y1="0" x2="400" y2="500"/>
+    <line x1="450" y1="0" x2="450" y2="500"/>
+  </g>
+
+  <!-- Person Body (Official Suit & Shirt) -->
+  <g filter="url(#shadow)">
+    <!-- Shoulders / Suit Jacket -->
+    <path d="M 80 500 Q 150 360 250 350 Q 350 360 420 500 Z" fill="url(#suitGrad)"/>
+    
+    <!-- White Shirt Collar Triangle -->
+    <polygon points="200,350 250,440 300,350" fill="#ffffff"/>
+    
+    <!-- Red Official Tie -->
+    <polygon points="242,365 258,365 264,440 250,470 236,440" fill="url(#tieGrad)"/>
+    <polygon points="240,355 260,355 256,368 244,368" fill="#900C3F"/>
+
+    <!-- Suit Lapels -->
+    <path d="M 120 420 L 200 350 L 220 440 L 140 500 Z" fill="#2c3e50"/>
+    <path d="M 380 420 L 300 350 L 280 440 L 360 500 Z" fill="#2c3e50"/>
+
+    <!-- Neck -->
+    <rect x="220" y="270" width="60" height="90" fill="url(#skinGrad)" rx="10"/>
+
+    <!-- Head -->
+    <ellipse cx="250" cy="210" rx="75" ry="95" fill="url(#skinGrad)"/>
+
+    <!-- Ears -->
+    <ellipse cx="172" cy="215" rx="12" ry="20" fill="url(#skinGrad)"/>
+    <ellipse cx="328" cy="215" rx="12" ry="20" fill="url(#skinGrad)"/>
+
+    <!-- Hair (Neat Professional Style) -->
+    <path d="M 170 190 Q 175 110 250 110 Q 325 110 330 190 Q 310 145 250 140 Q 190 145 170 190 Z" fill="#111111"/>
+    <path d="M 172 170 Q 200 130 250 135 Q 310 130 328 170 Q 300 120 250 120 Q 200 120 172 170 Z" fill="#2c2c2c"/>
+
+    <!-- Eyes & Eyebrows -->
+    <path d="M 195 180 Q 215 172 230 180" stroke="#111111" stroke-width="4.5" fill="none" stroke-linecap="round"/>
+    <path d="M 270 180 Q 285 172 305 180" stroke="#111111" stroke-width="4.5" fill="none" stroke-linecap="round"/>
+    
+    <circle cx="212" cy="195" r="7" fill="#111111"/>
+    <circle cx="288" cy="195" r="7" fill="#111111"/>
+    <circle cx="214" cy="193" r="2" fill="#ffffff"/>
+    <circle cx="290" cy="193" r="2" fill="#ffffff"/>
+
+    <!-- Nose -->
+    <path d="M 248 195 Q 242 225 250 230 Q 256 228 254 220" stroke="#d49b6a" stroke-width="3" fill="none" stroke-linecap="round"/>
+
+    <!-- Smile / Lips -->
+    <path d="M 225 252 Q 250 268 275 252" stroke="#b33939" stroke-width="4" fill="none" stroke-linecap="round"/>
+
+    <!-- Smart Glasses / Kacamata (Optional Professional Look) -->
+    <rect x="190" y="182" width="45" height="28" rx="6" stroke="#222222" stroke-width="3.5" fill="rgba(255,255,255,0.15)"/>
+    <rect x="265" y="182" width="45" height="28" rx="6" stroke="#222222" stroke-width="3.5" fill="rgba(255,255,255,0.15)"/>
+    <line x1="235" y1="194" x2="265" y2="194" stroke="#222222" stroke-width="3.5"/>
+  </g>
+
+  <!-- Badge / Watermark "SMKN 1 JENANGAN" -->
+  <rect x="25" y="445" width="220" height="32" rx="16" fill="rgba(0,0,0,0.5)" backdrop-filter="blur(4px)"/>
+  <text x="135" y="466" font-family="'Poppins', sans-serif" font-size="12" font-weight="700" fill="#ffffff" text-anchor="middle" letter-spacing="1">SMKN 1 JENANGAN</text>
+</svg>

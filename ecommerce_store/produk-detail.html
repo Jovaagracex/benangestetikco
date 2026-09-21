@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detail Produk — BenangEstetik Co.</title>
+    <meta name="description" content="Detail produk handmade BenangEstetik Co.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+    <link href="assets/css/style.css" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Preloader -->
+    <div class="preloader" id="preloader">
+      <div class="preloader-logo">B</div>
+      <div class="preloader-text">Memuat BenangEstetik Co....</div>
+      <div class="preloader-sub">Toko Handicraft Premium &middot; Erlangga Satria Pratama</div>
+      <div class="preloader-dots"><span></span><span></span><span></span></div>
+    </div>
+
+    <nav class="navbar navbar-expand-lg navbar-store fixed-top" id="mainNav">
+        <div class="container">
+            <a class="navbar-brand navbar-brand-store" href="index.html"><span class="logo-b">B</span> BenangEstetik<span>.</span></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navStore" aria-controls="navStore" aria-expanded="false" aria-label="Menu"><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navStore">
+                <ul class="navbar-nav ms-auto align-items-lg-center gap-1">
+                    <li class="nav-item"><a class="nav-link" href="index.html"><i class="fas fa-home me-1"></i>Beranda</a></li>
+                    <li class="nav-item"><a class="nav-link" href="katalog.html"><i class="fas fa-th-large me-1"></i>Katalog</a></li>
+                    <li class="nav-item"><a class="nav-link cart-btn" href="keranjang.html" aria-label="Keranjang"><i class="fas fa-shopping-cart me-1"></i>Keranjang<span class="cart-badge-count">0</span></a></li>
+                    <li class="nav-item ms-lg-2 mt-2 mt-lg-0 d-flex align-items-center flex-wrap gap-2" id="navUserAuth"></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div style="height:74px"></div>
+
+    <section class="section" style="padding-top:2rem">
+        <div class="container">
+            <nav aria-label="breadcrumb" class="mb-4">
+                <ol class="breadcrumb" id="breadcrumb">
+                    <li class="breadcrumb-item"><a href="index.html" class="text-decoration-none"><i class="fas fa-home me-1"></i>Beranda</a></li>
+                    <li class="breadcrumb-item"><a href="katalog.html" class="text-decoration-none">Katalog</a></li>
+                    <li class="breadcrumb-item active" aria-current="page" id="breadcrumbProduct">Produk</li>
+                </ol>
+            </nav>
+
+            <div class="row g-4" id="productDetail">
+                <div class="col-lg-6 text-center">
+                    <div class="detail-img-wrap" id="imgWrap">
+                        <img id="productImage" src="" alt="Produk" class="img-fluid rounded-4" style="max-height:480px;object-fit:cover;width:100%;box-shadow:0 20px 50px rgba(0,0,0,.3)">
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <span class="badge-custom badge-cat mb-2" id="productCategory">-</span>
+                    <h1 class="fw-bold mb-2" id="productName" style="font-size:1.8rem">Memuat...</h1>
+                    <div class="d-flex align-items-center gap-2 mb-3">
+                        <div class="text-gold fw-bold fs-4" id="productPrice">Rp 0</div>
+                    </div>
+                    <div class="d-flex align-items-center gap-3 mb-3">
+                        <span class="text-muted"><i class="fas fa-box-open me-1"></i>Stok: <strong id="productStock">0</strong> unit</span>
+                        <span class="text-muted"><i class="fas fa-tag me-1"></i>Kategori: <strong id="productCatText">-</strong></span>
+                    </div>
+                    <hr style="border-color:var(--border)">
+                    <h6 class="fw-bold mb-2" style="color:var(--terracotta)">Deskripsi Produk</h6>
+                    <p class="text-muted" id="productDesc" style="line-height:1.8">-</p>
+                    <hr style="border-color:var(--border)">
+                    <div class="d-flex align-items-center gap-3 mb-3">
+                        <label class="fw-semibold" style="min-width:60px">Jumlah:</label>
+                        <div class="input-group" style="width:140px">
+                            <button class="btn btn-outline-secondary" type="button" id="qtyMinus"><i class="fas fa-minus"></i></button>
+                            <input type="number" class="form-control text-center" id="qtyInput" value="1" min="1" max="99">
+                            <button class="btn btn-outline-secondary" type="button" id="qtyPlus"><i class="fas fa-plus"></i></button>
+                        </div>
+                    </div>
+                    <div class="d-flex flex-wrap gap-2">
+                        <button class="btn btn-primary btn-lg flex-grow-1" id="btnAddToCart" style="border-radius:12px">
+                            <i class="fas fa-cart-plus me-2"></i>Tambah ke Keranjang
+                        </button>
+                        <a href="keranjang.html" class="btn btn-outline-dark btn-lg" id="btnGoCart" style="border-radius:12px;display:none">
+                            <i class="fas fa-shopping-bag me-2"></i>Lihat Keranjang
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-5">
+                <h4 class="fw-bold mb-4"><i class="fas fa-box-open me-2" style="color:var(--terracotta)"></i>Produk Lainnya</h4>
+                <div class="row g-4" id="relatedProducts"></div>
+            </div>
+        </div>
+    </section>
+
+    <div class="position-fixed bottom-0 end-0 p-3" style="z-index:1080">
+        <div id="cartToast" class="toast align-items-center border-0" role="alert" aria-live="assertive" aria-atomic="true" style="background:var(--bg-card);border:1px solid var(--gold)!important;color:var(--text)">
+            <div class="d-flex">
+                <div class="toast-body"><i class="fas fa-check-circle text-success me-2"></i><span id="toastMsg">Ditambahkan ke keranjang!</span></div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer-store pt-5 pb-4">
+        <div class="container">
+            <div class="row g-4 mb-4">
+                <div class="col-lg-4">
+                    <h5 class="fw-bold mb-3"><i class="fas fa-store me-2" style="color:var(--terracotta)"></i>BenangEstetik Co.</h5>
+                    <p class="text-muted small">Toko produk handmade premium: rajutan, batik, busana, dan aksesoris dari pengrajin lokal Indonesia.</p>
+                </div>
+                <div class="col-lg-4">
+                    <h6 class="fw-bold mb-3" style="color:var(--terracotta)">Navigasi</h6>
+                    <ul class="list-unstyled">
+                        <li class="mb-1"><a href="index.html" class="text-muted small text-decoration-none">Beranda</a></li>
+                        <li class="mb-1"><a href="katalog.html" class="text-muted small text-decoration-none">Katalog Produk</a></li>
+                        <li class="mb-1"><a href="keranjang.html" class="text-muted small text-decoration-none">Keranjang</a></li>
+                        <li class="mb-1"><a href="admin/login.html" class="text-muted small text-decoration-none">Admin Panel</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4">
+                    <h6 class="fw-bold mb-3" style="color:var(--terracotta)">Pengembang</h6>
+                    <p class="text-muted small mb-1">Erlangga Satria Pratama</p>
+                    <p class="text-muted small mb-2">SMKN 1 Jenangan Ponorogo</p>
+                    <div class="d-flex gap-2">
+                        <a href="https://wa.me/6285175208067" target="_blank" class="btn btn-outline-secondary btn-sm rounded-circle" style="width:32px;height:32px;padding:0;display:flex;align-items:center;justify-content:center"><i class="fab fa-whatsapp"></i></a>
+                        <a href="https://t.me/givadaa" target="_blank" class="btn btn-outline-secondary btn-sm rounded-circle" style="width:32px;height:32px;padding:0;display:flex;align-items:center;justify-content:center"><i class="fab fa-telegram"></i></a>
+                        <a href="https://instagram.com/erlangszc" target="_blank" class="btn btn-outline-secondary btn-sm rounded-circle" style="width:32px;height:32px;padding:0;display:flex;align-items:center;justify-content:center"><i class="fab fa-instagram"></i></a>
+                        <a href="https://github.com/Jovaagracex" target="_blank" class="btn btn-outline-secondary btn-sm rounded-circle" style="width:32px;height:32px;padding:0;display:flex;align-items:center;justify-content:center"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+            </div>
+            <hr style="border-color:var(--border)">
+            <div class="text-center">
+                <p class="text-muted small mb-0">&copy; <span id="currentYear"></span> BenangEstetik Co. All rights reserved. Built by <strong style="color:var(--terracotta)">Erlangga Satria Pratama</strong></p>
+            </div>
+        </div>
+    </footer>
+
+    <a href="#" class="floating-home-btn" title="Kembali ke Beranda" id="backToTop"><i class="fas fa-arrow-up"></i></a>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="assets/js/supabase.js"></script>
+    <script src="assets/js/app.js"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function(){
+        'use strict';
+
+        var products = [];
+        var currentProduct = null;
+        var qty = 1;
+
+        function fmtRp(n){ return 'Rp ' + Number(n||0).toLocaleString('id-ID'); }
+        function esc(s){ if(s==null) return ''; var d=document.createElement('div'); d.textContent=String(s); return d.innerHTML; }
+
+        async function loadProducts(){
+            var client = window.supabaseClient || (typeof supabase!=='undefined'?supabase:null);
+            if(client){
+                try{
+                    var r = await client.from('products').select('*');
+                    if(!r.error && Array.isArray(r.data) && r.data.length){ products=r.data; return; }
+                }catch(e){}
+            }
+            var raw = localStorage.getItem('bep');
+            try{ products = raw ? JSON.parse(raw) : []; }catch(e){ products=[]; }
+        }
+
+        function getProductId(){
+            var p = new URLSearchParams(window.location.search);
+            return p.get('id');
+        }
+
+        function renderProduct(p){
+            if(!p){ document.getElementById('productName').textContent='Produk tidak ditemukan'; return; }
+            currentProduct = p;
+            document.title = p.name + ' — BenangEstetik Co.';
+            document.getElementById('productName').textContent = p.name||'-';
+            document.getElementById('productPrice').textContent = fmtRp(p.price);
+            document.getElementById('productStock').textContent = p.stock||0;
+            document.getElementById('productCatText').textContent = p.category||'-';
+            document.getElementById('productCategory').textContent = p.category||'-';
+            document.getElementById('productDesc').textContent = p.description||'-';
+            document.getElementById('breadcrumbProduct').textContent = p.name||'Produk';
+            var img = p.image||'';
+            if(img.indexOf('data:image/')!==0 && img.indexOf('http')!==0) img='https://images.unsplash.com/photo-1608248597261-e9d690a6e879?w=600';
+            document.getElementById('productImage').src = img;
+            document.getElementById('productImage').alt = p.name||'Produk';
+        }
+
+        function renderRelated(current){
+            var container = document.getElementById('relatedProducts');
+            var related = products.filter(function(p){ return p.id !== current.id; }).slice(0,4);
+            if(!related.length){ container.innerHTML='<p class="text-muted">Belum ada produk lain.</p>'; return; }
+            var h='';
+            related.forEach(function(p){
+                var img=p.image||'';
+                if(img.indexOf('data:image/')!==0 && img.indexOf('http')!==0) img='https://images.unsplash.com/photo-1608248597261-e9d690a6e879?w=400';
+                h+='<div class="col-sm-6 col-lg-3">'
+                    +'<a href="produk-detail.html?id='+encodeURIComponent(p.id)+'" class="text-decoration-none">'
+                    +'<div class="card card-store h-100">'
+                        +'<img src="'+esc(img)+'" class="card-img-top" alt="'+esc(p.name)+'" style="height:180px;object-fit:cover" onerror="this.src=\'https://images.unsplash.com/photo-1608248597261-e9d690a6e879?w=400\'">'
+                        +'<div class="card-body">'
+                            +'<h6 class="card-title fw-bold" style="color:var(--text)">'+esc(p.name)+'</h6>'
+                            +'<div class="fw-bold" style="color:var(--terracotta)">'+fmtRp(p.price)+'</div>'
+                        +'</div>'
+                    +'</div></a></div>';
+            });
+            container.innerHTML = h;
+        }
+
+        document.getElementById('qtyMinus').addEventListener('click', function(){
+            if(qty>1){ qty--; document.getElementById('qtyInput').value=qty; }
+        });
+        document.getElementById('qtyPlus').addEventListener('click', function(){
+            if(qty<99){ qty++; document.getElementById('qtyInput').value=qty; }
+        });
+        document.getElementById('qtyInput').addEventListener('change', function(){
+            var v=parseInt(this.value)||1; if(v<1)v=1; if(v>99)v=99; qty=v; this.value=qty;
+        });
+
+        document.getElementById('btnAddToCart').addEventListener('click', function(){
+            if(!currentProduct) return;
+            Cart.addItem(currentProduct, qty);
+            var toastEl = document.getElementById('cartToast');
+            var toast = new bootstrap.Toast(toastEl);
+            document.getElementById('toastMsg').textContent = currentProduct.name+' ditambahkan ke keranjang!';
+            toast.show();
+            document.getElementById('btnGoCart').style.display='inline-flex';
+        });
+
+        (async function(){
+            await loadProducts();
+            var id = getProductId();
+            var prod = products.find(function(p){ return String(p.id)===String(id); });
+            renderProduct(prod);
+            if(prod) renderRelated(prod);
+            document.getElementById('currentYear').textContent = new Date().getFullYear();
+        })();
+    });
+    </script>
+
+<script>
+function hidePreloader() {
+  var pl = document.getElementById('preloader');
+  if (pl) pl.classList.add('hidden');
+}
+document.addEventListener('DOMContentLoaded', hidePreloader);
+window.addEventListener('load', hidePreloader);
+setTimeout(hidePreloader, 100);
+</script>
+</body>
+</html>

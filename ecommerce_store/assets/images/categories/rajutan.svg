@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300" viewBox="0 0 400 300">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#C2724F;stop-opacity:0.12"/>
+      <stop offset="100%" style="stop-color:#C2724F;stop-opacity:0.04"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="300" fill="url(#bg)" rx="16"/>
+  <circle cx="200" cy="120" r="60" fill="rgba(194,114,79,0.1)"/>
+  <text x="200" y="135" font-size="50" text-anchor="middle" fill="#C2724F">🧶</text>
+  <text x="200" y="210" font-family="Georgia, serif" font-size="22" font-weight="bold" fill="#C2724F" text-anchor="middle">Rajutan</text>
+  <text x="200" y="240" font-family="Arial, sans-serif" font-size="13" fill="rgba(194,114,79,0.6)" text-anchor="middle">Handmade Premium</text>
+</svg>

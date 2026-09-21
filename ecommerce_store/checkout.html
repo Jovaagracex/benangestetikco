@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout — BenangEstetik Co.</title>
+    <meta name="description" content="Checkout pesanan Anda di BenangEstetik Co.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+    <link href="assets/css/style.css" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Preloader -->
+    <div class="preloader" id="preloader">
+      <div class="preloader-logo">B</div>
+      <div class="preloader-text">Memuat BenangEstetik Co....</div>
+      <div class="preloader-sub">Toko Handicraft Premium &middot; Erlangga Satria Pratama</div>
+      <div class="preloader-dots"><span></span><span></span><span></span></div>
+    </div>
+
+    <nav class="navbar navbar-expand-lg navbar-store fixed-top" id="mainNav">
+        <div class="container">
+            <a class="navbar-brand navbar-brand-store" href="index.html"><span class="logo-b">B</span> BenangEstetik<span>.</span></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navStore" aria-controls="navStore" aria-expanded="false" aria-label="Menu"><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navStore">
+                <ul class="navbar-nav ms-auto align-items-lg-center gap-1">
+                    <li class="nav-item"><a class="nav-link" href="index.html"><i class="fas fa-home me-1"></i>Beranda</a></li>
+                    <li class="nav-item"><a class="nav-link" href="katalog.html"><i class="fas fa-th-large me-1"></i>Katalog</a></li>
+                    <li class="nav-item"><a class="nav-link cart-btn" href="keranjang.html" aria-label="Keranjang"><i class="fas fa-shopping-cart me-1"></i>Keranjang<span class="cart-badge-count">0</span></a></li>
+                    <li class="nav-item ms-lg-2 mt-2 mt-lg-0 d-flex align-items-center flex-wrap gap-2" id="navUserAuth"></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div style="height:74px"></div>
+
+    <section class="section" style="padding-top:2rem">
+        <div class="container">
+            <h2 class="fw-bold mb-4"><i class="fas fa-credit-card me-2" style="color:var(--terracotta)"></i>Checkout Pesanan</h2>
+
+            <div id="checkoutEmpty" class="text-center py-5 d-none">
+                <i class="fas fa-shopping-cart" style="font-size:4rem;color:rgba(0,0,0,.05)"></i>
+                <h4 class="fw-bold mt-3" style="color:var(--text)">Keranjang Kosong</h4>
+                <p class="text-muted">Tambahkan produk ke keranjang terlebih dahulu.</p>
+                <a href="katalog.html" class="btn btn-primary mt-2"><i class="fas fa-bag-shopping me-2"></i>Mulai Belanja</a>
+            </div>
+
+            <div id="checkoutContent" class="d-none">
+                <div class="row g-4">
+                    <div class="col-lg-7">
+                        <div class="card card-store mb-4">
+                            <div class="card-body">
+                                <h5 class="fw-bold mb-3" style="color:var(--text)"><i class="fas fa-user me-2" style="color:var(--terracotta)"></i>Informasi Pelanggan</h5>
+                                <form id="checkoutForm" novalidate>
+                                    <div class="row g-3">
+                                        <div class="col-md-6">
+                                            <label class="form-label fw-semibold" style="font-size:.85rem">Nama Lengkap *</label>
+                                            <input type="text" class="form-control" id="custName" placeholder="Erlangga Satria Pratama" required>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="form-label fw-semibold" style="font-size:.85rem">No. WhatsApp *</label>
+                                            <input type="tel" class="form-control" id="custPhone" placeholder="085175208067" required>
+                                        </div>
+                                        <div class="col-12">
+                                            <label class="form-label fw-semibold" style="font-size:.85rem">Alamat Lengkap *</label>
+                                            <textarea class="form-control" id="custAddress" rows="3" placeholder="Jl. Contoh No. 123, Kelurahan, Kecamatan, Kota, Provinsi, Kode Pos" required></textarea>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="form-label fw-semibold" style="font-size:.85rem">Email (Opsional)</label>
+                                            <input type="email" class="form-control" id="custEmail" placeholder="email@contoh.com">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="form-label fw-semibold" style="font-size:.85rem">Metode Pembayaran *</label>
+                                            <select class="form-select" id="payMethod" required>
+                                                <option value="">Pilih metode...</option>
+                                                <option value="COD">Bayar di Tempat (COD)</option>
+                                                <option value="Transfer Bank">Transfer Bank</option>
+                                                <option value="E-Wallet">E-Wallet (GoPay, OVO, Dana)</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-12">
+                                            <label class="form-label fw-semibold" style="font-size:.85rem">Catatan Pesanan (Opsional)</label>
+                                            <textarea class="form-control" id="orderNote" rows="2" placeholder="Catatan untuk penjual, misal: warna favorit, ukuran khusus, dll."></textarea>
+                                        </div>
+                                    </div>
+
+                                    <div class="alert d-none mt-3" id="checkoutAlert" role="alert"></div>
+
+                                    <div class="mt-4">
+                                        <button type="submit" class="btn btn-primary btn-lg w-100" id="btnPlaceOrder" style="border-radius:12px">
+                                            <i class="fas fa-check-circle me-2"></i>Bayar Sekarang
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-5">
+                        <div class="card card-store" style="position:sticky;top:90px">
+                            <div class="card-body">
+                                <h5 class="fw-bold mb-3" style="color:var(--text)"><i class="fas fa-receipt me-2" style="color:var(--terracotta)"></i>Ringkasan Pesanan</h5>
+                                <div id="orderSummary"></div>
+                                <hr style="border-color:var(--border)">
+                                <div class="d-flex justify-content-between mb-1">
+                                    <span class="text-muted">Subtotal</span>
+                                    <strong id="subtotalVal">Rp 0</strong>
+                                </div>
+                                <div class="d-flex justify-content-between mb-1">
+                                    <span class="text-muted">Pengiriman</span>
+                                    <strong style="color:var(--green)">Gratis</strong>
+                                </div>
+                                <hr style="border-color:var(--border)">
+                                <div class="d-flex justify-content-between">
+                                    <span class="fw-bold" style="color:var(--text)">Total Bayar</span>
+                                    <strong class="fs-5" style="color:var(--terracotta)" id="checkoutTotal">Rp 0</strong>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="modal fade" id="successModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content" style="background:var(--bg-card);border:1px solid var(--border);border-radius:20px;color:var(--text)">
+                <div class="modal-body text-center p-5">
+                    <div style="width:80px;height:80px;border-radius:50%;background:rgba(46,204,113,.15);display:inline-flex;align-items:center;justify-content:center;margin-bottom:1.5rem">
+                        <i class="fas fa-check-circle" style="font-size:2.5rem;color:var(--green)"></i>
+                    </div>
+                    <h4 class="fw-bold mb-2">Pesanan Berhasil!</h4>
+                    <p class="text-muted mb-1">Kode pesanan Anda:</p>
+                    <h5 class="fw-bold mb-3" style="color:var(--terracotta)" id="orderCode">-</h5>
+                    <p class="text-muted small mb-4">Pesanan Anda akan segera diproses. Hubungi kami via WhatsApp untuk konfirmasi lebih lanjut.</p>
+                    <div class="d-flex flex-wrap gap-2 justify-content-center">
+                        <a href="https://wa.me/6285175208067" id="btnWaOrder" target="_blank" class="btn btn-success"><i class="fab fa-whatsapp me-2"></i>Konfirmasi via WhatsApp</a>
+                        <a href="index.html" class="btn btn-outline-dark"><i class="fas fa-home me-1"></i> Kembali ke Beranda</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer-store pt-5 pb-4">
+        <div class="container">
+            <div class="row g-4 mb-4">
+                <div class="col-lg-4">
+                    <h5 class="fw-bold mb-3"><i class="fas fa-store me-2" style="color:var(--terracotta)"></i>BenangEstetik Co.</h5>
+                    <p class="text-muted small">Toko produk handmade premium: rajutan, batik, busana, dan aksesoris dari pengrajin lokal Indonesia.</p>
+                </div>
+                <div class="col-lg-4">
+                    <h6 class="fw-bold mb-3" style="color:var(--terracotta)">Navigasi</h6>
+                    <ul class="list-unstyled">
+                        <li class="mb-1"><a href="index.html" class="text-muted small text-decoration-none">Beranda</a></li>
+                        <li class="mb-1"><a href="katalog.html" class="text-muted small text-decoration-none">Katalog Produk</a></li>
+                        <li class="mb-1"><a href="keranjang.html" class="text-muted small text-decoration-none">Keranjang</a></li>
+                        <li class="mb-1"><a href="admin/login.html" class="text-muted small text-decoration-none">Admin Panel</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4">
+                    <h6 class="fw-bold mb-3" style="color:var(--terracotta)">Pengembang</h6>
+                    <p class="text-muted small mb-1">Erlangga Satria Pratama</p>
+                    <p class="text-muted small mb-2">SMKN 1 Jenangan Ponorogo</p>
+                    <div class="d-flex gap-2">
+                        <a href="https://wa.me/6285175208067" target="_blank" class="btn btn-outline-secondary btn-sm rounded-circle" style="width:32px;height:32px;padding:0;display:flex;align-items:center;justify-content:center"><i class="fab fa-whatsapp"></i></a>
+                        <a href="https://t.me/givadaa" target="_blank" class="btn btn-outline-secondary btn-sm rounded-circle" style="width:32px;height:32px;padding:0;display:flex;align-items:center;justify-content:center"><i class="fab fa-telegram"></i></a>
+                        <a href="https://instagram.com/erlangszc" target="_blank" class="btn btn-outline-secondary btn-sm rounded-circle" style="width:32px;height:32px;padding:0;display:flex;align-items:center;justify-content:center"><i class="fab fa-instagram"></i></a>
+                        <a href="https://github.com/Jovaagracex" target="_blank" class="btn btn-outline-secondary btn-sm rounded-circle" style="width:32px;height:32px;padding:0;display:flex;align-items:center;justify-content:center"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+            </div>
+            <hr style="border-color:var(--border)">
+            <div class="text-center">
+                <p class="text-muted small mb-0">&copy; <span id="currentYear"></span> BenangEstetik Co. All rights reserved. Built by <strong style="color:var(--terracotta)">Erlangga Satria Pratama</strong></p>
+            </div>
+        </div>
+    </footer>
+
+    <a href="#" class="floating-home-btn" title="Kembali ke Atas" id="backToTop"><i class="fas fa-arrow-up"></i></a>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="assets/js/supabase.js"></script>
+    <script src="assets/js/app.js"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function(){
+        'use strict';
+
+        function fmtRp(n){ return 'Rp ' + Number(n||0).toLocaleString('id-ID'); }
+        function esc(s){ if(s==null) return ''; var d=document.createElement('div'); d.textContent=String(s); return d.innerHTML; }
+
+        function renderSummary(){
+            var items = Cart.getItems();
+            var emptyEl = document.getElementById('checkoutEmpty');
+            var contentEl = document.getElementById('checkoutContent');
+
+            if(!items.length){
+                emptyEl.classList.remove('d-none');
+                contentEl.classList.add('d-none');
+                return;
+            }
+
+            emptyEl.classList.add('d-none');
+            contentEl.classList.remove('d-none');
+
+            var h = '';
+            items.forEach(function(item){
+                h+='<div class="d-flex justify-content-between align-items-center py-2" style="border-bottom:1px solid rgba(255,255,255,.06)">'
+                    +'<div class="d-flex align-items-center gap-2">'
+                        +'<span class="badge bg-secondary rounded-pill" style="font-size:.7rem">'+item.quantity+'x</span>'
+                        +'<span class="small" style="color:var(--text)">'+esc(item.name)+'</span>'
+                    +'</div>'
+                    +'<strong class="small" style="color:var(--terracotta)">'+fmtRp(item.price*item.quantity)+'</strong>'
+                +'</div>';
+            });
+            document.getElementById('orderSummary').innerHTML = h;
+
+            var total = Cart.getTotal();
+            document.getElementById('subtotalVal').textContent = fmtRp(total);
+            document.getElementById('checkoutTotal').textContent = fmtRp(total);
+        }
+
+        document.getElementById('checkoutForm').addEventListener('submit', async function(e){
+            e.preventDefault();
+            var alertEl = document.getElementById('checkoutAlert');
+            var btn = document.getElementById('btnPlaceOrder');
+
+            var name = document.getElementById('custName').value.trim();
+            var phone = document.getElementById('custPhone').value.trim();
+            var address = document.getElementById('custAddress').value.trim();
+            var email = document.getElementById('custEmail').value.trim();
+            var payMethod = document.getElementById('payMethod').value;
+            var note = document.getElementById('orderNote').value.trim();
+            var items = Cart.getItems();
+
+            if(!name||name.length<3){ showAlert('Nama lengkap minimal 3 karakter.','danger'); return; }
+            if(!phone||phone.length<10){ showAlert('Nomor WhatsApp minimal 10 digit.','danger'); return; }
+            if(!address||address.length<10){ showAlert('Alamat lengkap minimal 10 karakter.','danger'); return; }
+            if(!payMethod){ showAlert('Pilih metode pembayaran.','danger'); return; }
+            if(!items.length){ showAlert('Keranjang kosong!','danger'); return; }
+
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Memproses Pesanan...';
+
+            var total = Cart.getTotal();
+            var orderCode = 'BE-' + Date.now().toString(36).toUpperCase();
+            var orderPayload = {
+                customer_name: name,
+                customer_phone: phone,
+                customer_address: address,
+                customer_email: email || null,
+                payment_method: payMethod,
+                note: note || null,
+                items: items.map(function(it){ return { name:it.name, price:it.price, qty:it.quantity, product_id:it.product_id }; }),
+                total: total,
+                status: 'pending',
+                order_code: orderCode
+            };
+
+            var savedToSupabase = false;
+            var client = window.supabaseClient || (typeof supabase!=='undefined'?supabase:null);
+            if(client){
+                try{
+                    var res = await client.from('orders').insert([orderPayload]);
+                    if(!res.error) savedToSupabase = true;
+                }catch(e){}
+            }
+
+            if(!savedToSupabase){
+                var localOrders = JSON.parse(localStorage.getItem('beo')||'[]');
+                orderPayload.id = 'order-'+Date.now();
+                orderPayload.created_at = new Date().toISOString();
+                localOrders.unshift(orderPayload);
+                localStorage.setItem('beo', JSON.stringify(localOrders));
+            }
+
+            // Generate formatted WhatsApp message for direct order confirmation
+            var itemSummaryText = items.map(function(it){ return '- ' + it.name + ' (' + it.quantity + 'x)'; }).join('\n');
+            var waMessage = "Halo BenangEstetik Co. (Erlangga Satria Pratama),\n\nSaya ingin mengonfirmasi pesanan baru:\n*Kode Order:* #" + orderCode + "\n*Nama:* " + name + "\n*Telepon/WA:* " + phone + "\n*Alamat:* " + address + "\n*Metode Pembayaran:* " + payMethod + "\n\n*Rincian Item:*\n" + itemSummaryText + "\n\n*Total Bayar:* " + fmtRp(total) + "\n\nMohon segera diproses, terima kasih!";
+            var waUrl = "https://wa.me/6285175208067?text=" + encodeURIComponent(waMessage);
+            
+            var btnWa = document.getElementById('btnWaOrder');
+            if (btnWa) {
+                btnWa.href = waUrl;
+            }
+
+            Cart.clear();
+
+            document.getElementById('orderCode').textContent = '#' + orderCode;
+            var modal = new bootstrap.Modal(document.getElementById('successModal'));
+            modal.show();
+
+            showAlert('Pesanan berhasil! Kode: ' + orderCode, 'success');
+            btn.disabled = false;
+            btn.innerHTML = '<i class="fas fa-check-circle me-2"></i>Bayar Sekarang';
+        });
+
+        function showAlert(msg, type){
+            var el = document.getElementById('checkoutAlert');
+            el.className = 'alert alert-' + type + ' mt-3';
+            el.innerHTML = '<i class="fas fa-' + (type==='success'?'check-circle':'exclamation-triangle') + ' me-2"></i>' + msg;
+            el.classList.remove('d-none');
+        }
+
+        renderSummary();
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+    });
+    </script>
+
+<script>
+function hidePreloader() {
+  var pl = document.getElementById('preloader');
+  if (pl) pl.classList.add('hidden');
+}
+document.addEventListener('DOMContentLoaded', hidePreloader);
+window.addEventListener('load', hidePreloader);
+setTimeout(hidePreloader, 100);
+</script>
+</body>
+</html>
