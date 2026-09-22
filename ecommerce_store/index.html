@@ -243,27 +243,16 @@
                     '</div>' +
                 '</div>';
             }
-            async function loadCategories() {
+            function loadCategories() {
                 var container = document.getElementById('categoriesContainer');
                 var footerBox = document.getElementById('footerCategories');
                 if (!container) return;
-                var cats = [];
-                if (typeof supabase !== 'undefined' && supabase) {
-                    try {
-                        var res = await supabase.from('categories').select('*').order('name');
-                        if (!res.error && Array.isArray(res.data) && res.data.length > 0) {
-                            cats = res.data;
-                        }
-                    } catch (e) {}
-                }
-                if (!cats || cats.length === 0) {
-                    cats = [
-                        { name: 'Benang Rajut', slug: 'benang', description: 'Katun, Wool, Akrilik, Milk Cotton' },
-                        { name: 'Alat & Jarum', slug: 'alat-rajut', description: 'Hakpen, Jarum Tapestri, Gunting' },
-                        { name: 'Paket DIY Kit', slug: 'paket-kit', description: 'Pemula Amigurumi & Macrame' },
-                        { name: 'Aksesoris & Kerajinan', slug: 'aksesoris', description: 'Tas, Taplak & Hiasan Dinding' }
-                    ];
-                }
+                var cats = [
+                    { name: 'Benang Rajut', slug: 'benang', description: 'Katun, Wool, Akrilik, Milk Cotton' },
+                    { name: 'Alat & Jarum', slug: 'alat-rajut', description: 'Hakpen, Jarum Tapestri, Gunting' },
+                    { name: 'Paket DIY Kit', slug: 'paket-kit', description: 'Pemula Amigurumi & Macrame' },
+                    { name: 'Aksesoris & Kerajinan', slug: 'aksesoris', description: 'Tas, Taplak & Hiasan Dinding' }
+                ];
                 container.innerHTML = cats.map(function (cat) {
                     var slug = generateSlug(cat.slug || cat.name || '');
                     var st = catStyle(slug);
@@ -286,48 +275,68 @@
                 }
             }
 
-            async function loadFeatured() {
+            function loadFeatured() {
                 var container = document.getElementById('featuredContainer');
                 if (!container) return;
                 var items = [];
-                if (typeof supabase !== 'undefined' && supabase) {
-                    try {
-                        var res = await supabase.from('products')
-                            .select('*')
-                            .gt('stock', 0)
-                            .order('created_at', { ascending: false })
-                            .limit(8);
-                        if (!res.error && Array.isArray(res.data) && res.data.length > 0) {
-                            items = res.data;
-                        }
-                    } catch (e) {}
-                }
+                var raw = localStorage.getItem('benangestetik_products');
+                try { items = raw ? JSON.parse(raw) : []; } catch (e) { items = []; }
                 if (!items || items.length === 0) {
-                    var raw = localStorage.getItem('benangestetik_products');
-                    try { items = raw ? JSON.parse(raw) : []; } catch (e) { items = []; }
-                    if (!items || items.length === 0) {
-                        items = [
-                            { id: 'prod-001', name: 'Benang Katun Milk Premium', category: 'Benang', price: 25000, stock: 45, description: 'Benang katun susu super lembut untuk merajut amigurumi dan pakaian.', image: 'https://images.unsplash.com/photo-1608248597261-e9d690a6e879?w=600' },
-                            { id: 'prod-002', name: 'Alat Rajut Aluminium Set 11 Ukuran', category: 'Alat Rajut', price: 85000, stock: 20, description: 'Set jarum rajut hakpen berbahan aluminium antikarat 2.0mm hingga 8.0mm.', image: 'https://images.unsplash.com/photo-1584992236310-6edddc08acff?w=600' },
-                            { id: 'prod-003', name: 'Benang Wool Soft Chunky', category: 'Benang', price: 42000, stock: 30, description: 'Benang wool tebal berkualitas tinggi untuk selimut dan sweater.', image: 'https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?w=600' },
-                            { id: 'prod-004', name: 'Tas Rajut Estetik Handmade', category: 'Aksesoris', price: 135000, stock: 12, description: 'Tas bahu rajut bernuansa vintage modern hasil rajutan tangan presisi.', image: 'https://images.unsplash.com/photo-1590874103328-eac38a683ce7?w=600' }
-                        ];
-                    }
+                    items = [
+                        { id: 'prod-001', name: 'Benang Katun Milk Premium', category: 'Benang', price: 25000, stock: 45, description: 'Benang katun susu super lembut untuk merajut amigurumi dan pakaian.', image: 'https://images.unsplash.com/photo-1608248597261-e9d690a6e879?w=600' },
+                        { id: 'prod-002', name: 'Alat Rajut Aluminium Set 11 Ukuran', category: 'Alat Rajut', price: 85000, stock: 20, description: 'Set jarum rajut hakpen berbahan aluminium antikarat 2.0mm hingga 8.0mm.', image: 'https://images.unsplash.com/photo-1584992236310-6edddc08acff?w=600' },
+                        { id: 'prod-003', name: 'Benang Wool Soft Chunky', category: 'Benang', price: 42000, stock: 30, description: 'Benang wool tebal berkualitas tinggi untuk selimut dan sweater.', image: 'https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?w=600' },
+                        { id: 'prod-004', name: 'Tas Rajut Estetik Handmade', category: 'Aksesoris', price: 135000, stock: 12, description: 'Tas bahu rajut bernuansa vintage modern hasil rajutan tangan presisi.', image: 'https://images.unsplash.com/photo-1590874103328-eac38a683ce7?w=600' }
+                    ];
                 }
                 container.innerHTML = items.slice(0, 8).map(productCard).join('');
+                if (typeof supabase !== 'undefined' && supabase) {
+                    supabase.from('products').select('*').gt('stock', 0).order('created_at', { ascending: false }).limit(8).then(function(res) {
+                        if (!res.error && Array.isArray(res.data) && res.data.length > 0) {
+                            var validProducts = res.data.filter(function(p) {
+                                return p && p.id && p.name && Number(p.price) > 0;
+                            });
+                            if (validProducts.length > 0) {
+                                container.innerHTML = validProducts.slice(0, 8).map(productCard).join('');
+                                attachCartButtons();
+                            }
+                        }
+                    }).catch(function(err){ console.error('[loadFeatured] Supabase error:', err); });
+                }
             }
-            loadCategories();
-            loadFeatured();
-            document.getElementById('featuredContainer').addEventListener('click',function(e){
-                var btn=e.target.closest('.btn-add-cart');
-                if(!btn)return;
-                e.preventDefault();
+
+            function addCartToasts(btn){
+                if(typeof Cart==='undefined'){ console.error('[addCart] Cart tidak ditemukan!'); return; }
                 var product={id:btn.getAttribute('data-product-id'),name:btn.getAttribute('data-product-name'),price:Number(btn.getAttribute('data-product-price')),image:btn.getAttribute('data-product-image')||null};
-                Cart.addItem(product,1);
+                console.log('[addCart] data dari button:', product);
+                if(!product.id){ console.error('[addCart] product.id kosong!'); return; }
+                var added = Cart.addItem(product,1);
+                console.log('[addCart] Cart.addItem result:', added);
+                if(!added){ console.error('[addCart] GAGAL menambah item!'); return; }
                 btn.innerHTML='<i class="fas fa-check"></i>';
                 btn.classList.add('btn-success');
                 setTimeout(function(){btn.innerHTML='<i class="fas fa-cart-plus"></i>';btn.classList.remove('btn-success');},1200);
-            });
+                var toast=document.createElement('div');
+                toast.className='toast-add-cart';
+                toast.innerHTML='<i class="fas fa-check-circle"></i> Ditambahkan ke keranjang';
+                document.body.appendChild(toast);
+                setTimeout(function(){toast.classList.add('show');},10);
+                setTimeout(function(){toast.classList.remove('show');setTimeout(function(){toast.remove();},300);},1800);
+            }
+
+            function attachCartButtons(){
+                document.querySelectorAll('#featuredContainer .btn-add-cart').forEach(function(btn){
+                    btn.onclick=function(e){
+                        e.preventDefault();
+                        e.stopPropagation();
+                        addCartToasts(btn);
+                    };
+                });
+            }
+
+            loadCategories();
+            loadFeatured();
+            attachCartButtons();
         });
     </script>
 

@@ -164,8 +164,17 @@
                     if(!r.error && Array.isArray(r.data) && r.data.length){ products=r.data; return; }
                 }catch(e){}
             }
-            var raw = localStorage.getItem('bep');
+            var raw = localStorage.getItem('benangestetik_products') || localStorage.getItem('bep');
             try{ products = raw ? JSON.parse(raw) : []; }catch(e){ products=[]; }
+            if(!Array.isArray(products) || products.length===0){
+                products = [
+                    { id: 'prod-001', name: 'Benang Katun Milk Premium', category: 'Benang', price: 25000, stock: 45, description: 'Benang katun susu super lembut untuk merajut amigurumi dan pakaian.', image: 'https://images.unsplash.com/photo-1608248597261-e9d690a6e879?w=600' },
+                    { id: 'prod-002', name: 'Alat Rajut Aluminium Set 11 Ukuran', category: 'Alat Rajut', price: 85000, stock: 20, description: 'Set jarum rajut hakpen berbahan aluminium antikarat 2.0mm hingga 8.0mm.', image: 'https://images.unsplash.com/photo-1584992236310-6edddc08acff?w=600' },
+                    { id: 'prod-003', name: 'Benang Wool Soft Chunky', category: 'Benang', price: 42000, stock: 30, description: 'Benang wool tebal berkualitas tinggi untuk selimut dan sweater.', image: 'https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?w=600' },
+                    { id: 'prod-004', name: 'Tas Rajut Estetik Handmade', category: 'Aksesoris', price: 135000, stock: 12, description: 'Tas bahu rajut bernuansa vintage modern hasil rajutan tangan presisi.', image: 'https://images.unsplash.com/photo-1590874103328-eac38a683ce7?w=600' },
+                    { id: 'prod-005', name: 'Kit Pemula Macrame Wall Hanging', category: 'Paket Kit', price: 95000, stock: 15, description: 'Paket lengkap pembuatan macrame: tali katun 4mm, gantungan kayu & modul.', image: 'https://images.unsplash.com/photo-1513519245088-0e12902e5a38?w=600' }
+                ];
+            }
         }
 
         function getProductId(){
@@ -174,7 +183,7 @@
         }
 
         function renderProduct(p){
-            if(!p){ document.getElementById('productName').textContent='Produk tidak ditemukan'; return; }
+            if(!p){ p = products[0]; }
             currentProduct = p;
             document.title = p.name + ' — BenangEstetik Co.';
             document.getElementById('productName').textContent = p.name||'-';
@@ -185,19 +194,19 @@
             document.getElementById('productDesc').textContent = p.description||'-';
             document.getElementById('breadcrumbProduct').textContent = p.name||'Produk';
             var img = p.image||'';
-            if(img.indexOf('data:image/')!==0 && img.indexOf('http')!==0) img='https://images.unsplash.com/photo-1608248597261-e9d690a6e879?w=600';
+            if(!img || (img.indexOf('data:image/')!==0 && img.indexOf('http')!==0)) img='https://images.unsplash.com/photo-1608248597261-e9d690a6e879?w=600';
             document.getElementById('productImage').src = img;
             document.getElementById('productImage').alt = p.name||'Produk';
         }
 
         function renderRelated(current){
             var container = document.getElementById('relatedProducts');
-            var related = products.filter(function(p){ return p.id !== current.id; }).slice(0,4);
+            var related = products.filter(function(p){ return String(p.id) !== String(current.id); }).slice(0,4);
             if(!related.length){ container.innerHTML='<p class="text-muted">Belum ada produk lain.</p>'; return; }
             var h='';
             related.forEach(function(p){
                 var img=p.image||'';
-                if(img.indexOf('data:image/')!==0 && img.indexOf('http')!==0) img='https://images.unsplash.com/photo-1608248597261-e9d690a6e879?w=400';
+                if(!img || (img.indexOf('data:image/')!==0 && img.indexOf('http')!==0)) img='https://images.unsplash.com/photo-1608248597261-e9d690a6e879?w=400';
                 h+='<div class="col-sm-6 col-lg-3">'
                     +'<a href="produk-detail.html?id='+encodeURIComponent(p.id)+'" class="text-decoration-none">'
                     +'<div class="card card-store h-100">'
@@ -234,7 +243,7 @@
         (async function(){
             await loadProducts();
             var id = getProductId();
-            var prod = products.find(function(p){ return String(p.id)===String(id); });
+            var prod = products.find(function(p){ return String(p.id)===String(id); }) || products[0];
             renderProduct(prod);
             if(prod) renderRelated(prod);
             document.getElementById('currentYear').textContent = new Date().getFullYear();

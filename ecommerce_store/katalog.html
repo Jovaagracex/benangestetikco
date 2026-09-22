@@ -237,10 +237,19 @@
                     btn.addEventListener('click',function(e){
                         e.preventDefault();
                         var product={id:btn.getAttribute('data-product-id'),name:btn.getAttribute('data-product-name'),price:Number(btn.getAttribute('data-product-price')),image:btn.getAttribute('data-product-image')||null};
-                        Cart.addItem(product,1);
+                        console.log('[katalog] addCart:', product);
+                        var added = Cart.addItem(product,1);
+                        console.log('[katalog] Cart.addItem result:', added);
+                        Cart.updateBadge();
                         btn.innerHTML='<i class="fas fa-check"></i>';
                         btn.classList.add('btn-success');
                         setTimeout(function(){btn.innerHTML='<i class="fas fa-cart-plus"></i>';btn.classList.remove('btn-success');},1200);
+                        var toast=document.createElement('div');
+                        toast.className='toast-add-cart';
+                        toast.innerHTML='<i class="fas fa-check-circle"></i> Ditambahkan ke keranjang';
+                        document.body.appendChild(toast);
+                        setTimeout(function(){toast.classList.add('show');},10);
+                        setTimeout(function(){toast.classList.remove('show');setTimeout(function(){toast.remove();},300);},1800);
                     });
                 });
             }

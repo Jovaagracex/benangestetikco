@@ -200,39 +200,93 @@ var Cart = {
     getItems: function () {
         try {
             var raw = localStorage.getItem(this.STORAGE_KEY);
+            console.log('[Cart] getItems raw:', raw ? raw.substring(0, 100) : 'null');
             var items = raw ? JSON.parse(raw) : [];
+            if (!Array.isArray(items) || items.length === 0) {
+                var fb = localStorage.getItem('benangestetik_cart') || localStorage.getItem('cart');
+                if (fb) {
+                    console.log('[Cart] getItems fallback:', fb.substring(0, 100));
+                    var fbItems = JSON.parse(fb);
+                    if (Array.isArray(fbItems) && fbItems.length > 0) { items = fbItems; }
+                }
+            }
+            console.log('[Cart] getItems result:', items.length, 'items');
             return Array.isArray(items) ? items : [];
         } catch (e) {
+            console.error('[Cart] getItems error:', e);
             return [];
         }
     },
     saveItems: function (items) {
+        var cleanItems = Array.isArray(items) ? items : [];
+        // Sanitize items: Strip heavy base64 image data (data:image/...) to prevent QuotaExceededError (5MB localStorage limit)
+        var lightweightItems = cleanItems.map(function(it) {
+            var copy = Object.assign({}, it);
+            if (copy.image && String(copy.image).indexOf('data:image/') === 0) {
+                copy.image = null; // Lightweight: let UI fall back to standard placeholder URL
+            }
+            return copy;
+        });
+
         try {
-            localStorage.setItem(this.STORAGE_KEY, JSON.stringify(items || []));
+            var json = JSON.stringify(lightweightItems);
+            localStorage.setItem(this.STORAGE_KEY, json);
+            localStorage.setItem('benangestetik_cart', json);
+            console.log('[Cart] saveItems sukses:', lightweightItems.length, 'items');
         } catch (e) {
-            console.error('[Cart] Gagal menyimpan:', e);
+            console.error('[Cart] Quota/Storage Error:', e);
+            // Emergency fallback: Strip image property completely and retry
+            try {
+                var stripped = lightweightItems.map(function(it) {
+                    var copy = Object.assign({}, it);
+                    delete copy.image;
+                    return copy;
+                });
+                var json2 = JSON.stringify(stripped);
+                localStorage.setItem(this.STORAGE_KEY, json2);
+                localStorage.setItem('benangestetik_cart', json2);
+                console.log('[Cart] saveItems emergency fallback sukses:', stripped.length, 'items');
+            } catch (err2) {
+                console.error('[Cart] Emergency save failed:', err2);
+            }
         }
         this.updateBadge();
+        try { window.dispatchEvent(new CustomEvent('cart-updated', { detail: { items: lightweightItems } })); } catch(e) {}
     },
     addItem: function (product, quantity) {
-        if (!product || !product.id) return false;
+        if (!product) { console.error('[Cart] addItem: product null'); return false; }
+        var pid = product.id || product.product_id;
+        if (!pid) { console.error('[Cart] addItem: product.id kosong', product); return false; }
         var qty = parseInt(quantity, 10);
         if (isNaN(qty) || qty < 1) qty = 1;
         var items = this.getItems();
         var found = null;
         for (var i = 0; i < items.length; i++) {
-            if (String(items[i].product_id) === String(product.id)) { found = items[i]; break; }
+            if (String(items[i].product_id) === String(pid) || String(items[i].id) === String(pid)) {
+                found = items[i];
+                break;
+            }
         }
+
+        // Sanitize image: if base64 data URL, set to null so it doesn't blow localStorage quota
+        var imgUrl = product.image || null;
+        if (imgUrl && String(imgUrl).indexOf('data:image/') === 0) {
+            imgUrl = null;
+        }
+
         if (found) {
             found.quantity = (parseInt(found.quantity, 10) || 0) + qty;
+            if (!found.image && imgUrl) found.image = imgUrl;
         } else {
-            items.push({
-                product_id: product.id,
+            var newItem = {
+                product_id: pid,
+                id: pid,
                 name: product.name || 'Produk',
                 price: Number(product.price) || 0,
-                image: product.image || null,
+                image: imgUrl,
                 quantity: qty
-            });
+            };
+            items.push(newItem);
         }
         this.saveItems(items);
         return true;
@@ -252,8 +306,11 @@ var Cart = {
         this.saveItems(items);
     },
     clear: function () {
-        try { localStorage.removeItem(this.STORAGE_KEY); } catch (e) {}
-        this.updateBadge();
+        try {
+            localStorage.removeItem(this.STORAGE_KEY);
+            localStorage.removeItem('benangestetik_cart');
+        } catch (e) {}
+        this.saveItems([]);
     },
     getTotal: function () {
         return this.getItems().reduce(function (sum, it) {
@@ -274,6 +331,53 @@ var Cart = {
     }
 };
 
+window.addEventListener('storage', function() { Cart.updateBadge(); });
+window.addEventListener('focus', function() { Cart.updateBadge(); });
+window.addEventListener('pageshow', function() { Cart.updateBadge(); });
+document.addEventListener('visibilitychange', function() { if (!document.hidden) Cart.updateBadge(); });
+window.addEventListener('cart-updated', function() { Cart.updateBadge(); });
+
 document.addEventListener('DOMContentLoaded', function () {
     Cart.updateBadge();
+
+    // Global listener for dynamic .btn-add-cart buttons
+    document.addEventListener('click', function (e) {
+        var btn = e.target.closest('.btn-add-cart');
+        if (!btn) return;
+        var pid = btn.getAttribute('data-product-id');
+        if (!pid) return;
+
+        e.preventDefault();
+        e.stopPropagation();
+
+        var prod = {
+            id: pid,
+            product_id: pid,
+            name: btn.getAttribute('data-product-name') || 'Produk',
+            price: Number(btn.getAttribute('data-product-price')) || 0,
+            image: btn.getAttribute('data-product-image') || null
+        };
+
+        Cart.addItem(prod, 1);
+
+        // Feedback UI
+        var originalHtml = btn.innerHTML;
+        btn.innerHTML = '<i class="fas fa-check"></i>';
+        btn.classList.add('btn-success');
+        setTimeout(function () {
+            btn.innerHTML = originalHtml;
+            btn.classList.remove('btn-success');
+        }, 1200);
+
+        // Toast feedback
+        var toast = document.createElement('div');
+        toast.className = 'toast-add-cart';
+        toast.innerHTML = '<i class="fas fa-check-circle me-1"></i> ' + sanitize(prod.name) + ' ditambahkan ke keranjang';
+        document.body.appendChild(toast);
+        setTimeout(function () { toast.classList.add('show'); }, 10);
+        setTimeout(function () {
+            toast.classList.remove('show');
+            setTimeout(function () { toast.remove(); }, 300);
+        }, 2000);
+    });
 });

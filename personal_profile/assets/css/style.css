@@ -945,6 +945,10 @@ img { max-width:100%; height:auto }
 }
 .btn-close { filter:none }
 
+/* ── Modal z-index fix ── */
+.modal { z-index:10550 !important; }
+.modal-backdrop { z-index:10500 !important; }
+
 .badge-custom {
   padding:.25rem .65rem;
   border-radius:var(--r-full);

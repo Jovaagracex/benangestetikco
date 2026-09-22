@@ -127,6 +127,14 @@
         /* Form Help Text */
         .form-help{font-size:.72rem;color:var(--muted);margin-top:.35rem;line-height:1.4}
 
+        /* Color Picker */
+        .color-opt{transition:all .2s ease !important}
+        .color-opt:hover{transform:scale(1.1) !important}
+        .color-opt.active{border-color:var(--cream) !important;box-shadow:0 0 0 2px rgba(0,0,0,.1) !important}
+
+        /* Input Group */
+        .input-group-text{font-family:'Inter',sans-serif}
+
         /* Modal Responsive */
         @media(max-width:767.98px){
             .form-grid{grid-template-columns:1fr}
@@ -155,9 +163,114 @@
         .preloader-dots span:nth-child(3){animation-delay:.3s}
         @keyframes dotBounce{0%,80%,100%{opacity:.25;transform:scale(.7)}40%{opacity:1;transform:scale(1.1)}}
 
-        /* RESPONSIVE */
-        @media(max-width:991.98px){.sidebar{transform:translateX(-100%)}.sidebar.show{transform:translateX(0)}.main{margin-left:0;width:100%}}
-        @media print{body *{visibility:hidden}#printableInvoice,#printableInvoice *{visibility:visible}#printableInvoice{position:absolute;left:0;top:0;width:100%}}
+        /* Table card view on mobile */
+        @media(max-width:767.98px){
+            .tbl-wrap{border:none;border-radius:0}
+            .tbl thead{display:none}
+            .tbl,.tbl tbody,.tbl tr,.tbl td{display:block;width:100%}
+            .tbl tr{background:var(--card);border:1px solid var(--border);border-radius:12px;margin-bottom:.75rem;padding:.85rem;box-shadow:0 1px 3px rgba(0,0,0,.04)}
+            .tbl td{padding:.35rem 0;border:none;font-size:.82rem;display:flex;align-items:center;justify-content:space-between;gap:.5rem}
+            .tbl td:before{content:attr(data-label);font-weight:600;color:var(--gold);font-size:.72rem;text-transform:uppercase;letter-spacing:.3px;min-width:80px;flex-shrink:0}
+            .tbl td:last-child{justify-content:flex-end;padding-top:.5rem;border-top:1px solid var(--border);margin-top:.25rem}
+            .tbl td:first-child{border-radius:0}
+            .prod-thumb{width:48px;height:48px}
+            .badge-c{font-size:.7rem}
+        }
+        /* Mobile: < 768px */
+        @media(max-width:767.98px){
+            .form-grid{grid-template-columns:1fr}
+            .form-col-full{grid-column:1}
+            .modal-foot{flex-wrap:wrap;justify-content:stretch}
+            .modal-foot .btn{flex:1}
+
+            .sidebar{transform:translateX(-100%);width:280px;box-shadow:none}
+            .sidebar.show{transform:translateX(0);box-shadow:4px 0 30px rgba(0,0,0,.3)}
+            .sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:999;backdrop-filter:blur(2px)}
+            .sidebar-overlay.show{display:block}
+
+            .main{margin-left:0;width:100%}
+            .topbar{height:60px;padding:0 1rem;gap:.5rem}
+            .page-title{font-size:1rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:140px}
+            .db-status-badge{display:none}
+            .user-badge{padding:.3rem .6rem;gap:.5rem}
+            .avatar{width:30px;height:30px;font-size:.75rem}
+            .profile-name{font-size:.78rem}
+            .profile-role{font-size:.65rem}
+
+            .content{padding:1rem .75rem}
+
+            .stat-card{padding:1rem;gap:.75rem;border-radius:14px}
+            .stat-icon{width:42px;height:42px;border-radius:10px;font-size:1.1rem}
+            .stat-val{font-size:1.15rem}
+            .stat-label{font-size:.72rem}
+
+            .panel{padding:1rem;border-radius:14px;margin-bottom:1rem}
+            .panel-head{flex-direction:column;align-items:stretch;gap:.75rem}
+            .panel-title{font-size:.95rem}
+            .panel-head .d-flex{flex-wrap:wrap;gap:.5rem}
+            .panel-head input,.panel-head select{width:100%!important;flex:1 1 auto;min-width:0}
+
+            .tbl{font-size:.8rem}
+            .tbl th{padding:.7rem .6rem;font-size:.7rem;letter-spacing:.3px}
+            .tbl td{padding:.65rem .6rem}
+            .prod-thumb{width:40px;height:40px;border-radius:8px}
+            .btn-act{width:36px;height:36px;font-size:.9rem}
+
+            .toast-box{left:.75rem;right:.75rem;bottom:1rem}
+            .toast-item{padding:.85rem 1rem;font-size:.85rem;border-radius:10px}
+
+            .modal-content{margin:.5rem;border-radius:16px}
+            .modal-head{padding:1rem 1.25rem}
+            .modal-body{padding:1rem 1.25rem}
+            .modal-foot{padding:.85rem 1.25rem}
+        }
+
+        /* Tablet: 768px - 991px */
+        @media(min-width:768px) and (max-width:991.98px){
+            .sidebar{transform:translateX(-100%);width:270px;box-shadow:none}
+            .sidebar.show{transform:translateX(0);box-shadow:4px 0 30px rgba(0,0,0,.3)}
+            .sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.3);z-index:999;backdrop-filter:blur(2px)}
+            .sidebar-overlay.show{display:block}
+
+            .main{margin-left:0;width:100%}
+            .topbar{padding:0 1.25rem}
+            .page-title{font-size:1.1rem}
+
+            .content{padding:1.25rem}
+            .stat-val{font-size:1.3rem}
+        }
+
+        /* Sidebar transition */
+        @media(max-width:991.98px){
+            .sidebar{transition:transform .3s ease}
+        }
+
+        /* Print */
+        @media print{
+            body *{visibility:hidden}
+            #printableInvoice,#printableInvoice *{visibility:visible}
+            #printableInvoice{position:absolute;left:0;top:0;width:100%}
+        }
+
+        /* Touch-friendly hover states */
+        @media(hover:none) and (pointer:coarse){
+            .btn-act{width:40px;height:40px}
+            .stat-card:hover{transform:none}
+            .nav-btn:hover{background:transparent;color:var(--muted)}
+            .nav-btn.active:hover{background:rgba(194,114,79,.08);color:var(--gold)}
+        }
+
+        /* Small phones */
+        @media(max-width:374px){
+            .content{padding:.75rem .5rem}
+            .stat-card{padding:.75rem .6rem;gap:.5rem}
+            .stat-icon{width:36px;height:36px;font-size:.95rem}
+            .stat-val{font-size:1rem}
+            .stat-label{font-size:.68rem}
+            .panel{padding:.85rem .65rem}
+            .page-title{font-size:.9rem}
+            .user-badge{display:none}
+        }
     </style>
 </head>
 <body>
@@ -169,6 +282,9 @@
         <div class="preloader-sub">BenangEstetik Co. &middot; Erlangga Satria Pratama</div>
         <div class="preloader-dots"><span></span><span></span><span></span></div>
     </div>
+
+    <!-- Sidebar Overlay (mobile) -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
     <!-- SIDEBAR -->
     <aside class="sidebar" id="sidebar">
@@ -343,36 +459,135 @@
 
             <!-- SECTION KATEGORI & STOK -->
             <section id="sectionCategories" class="d-none">
+                <!-- Stats Ringkas Kategori -->
                 <div class="row g-3 mb-4">
-                    <div class="col-md-4">
-                        <div class="panel h-100">
-                            <h4 class="panel-title mb-3"><i class="fas fa-plus-circle"></i> Tambah Kategori Baru</h4>
-                            <div class="mb-3">
-                                <label class="form-label-gold">Nama Kategori</label>
-                                <input type="text" id="newCatName" class="form-dark" placeholder="Contoh: Aksesoris Rajut">
-                            </div>
-                            <button class="btn-gold w-100" id="btnAddCategory"><i class="fas fa-save"></i> Simpan Kategori</button>
+                    <div class="col-md-3 col-6">
+                        <div class="stat-card">
+                            <div class="stat-icon gold"><i class="fas fa-tags"></i></div>
+                            <div><div class="stat-val" id="statTotalCategories">0</div><div class="stat-label">Total Kategori</div></div>
                         </div>
                     </div>
-                    <div class="col-md-8">
+                    <div class="col-md-3 col-6">
+                        <div class="stat-card">
+                            <div class="stat-icon terra"><i class="fas fa-box-open"></i></div>
+                            <div><div class="stat-val" id="statTotalProductsAll">0</div><div class="stat-label">Total Produk</div></div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-6">
+                        <div class="stat-card">
+                            <div class="stat-icon green"><i class="fas fa-warehouse"></i></div><div><div class="stat-val" id="statTotalStockAll">0</div><div class="stat-label">Total Stok</div></div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-6">
+                        <div class="stat-card">
+                            <div class="stat-icon yellow"><i class="fas fa-exclamation-triangle"></i></div>
+                            <div><div class="stat-val" id="statLowStockCount">0</div><div class="stat-label">Stok Rendah</div></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row g-3 mb-4">
+                    <!-- Kolom Kiri: Form Tambah/Edit Kategori -->
+                    <div class="col-lg-4">
                         <div class="panel h-100">
-                            <h4 class="panel-title mb-3"><i class="fas fa-tags"></i> Ringkasan Kategori</h4>
+                            <h4 class="panel-title mb-3" id="categoryFormTitle"><i class="fas fa-plus-circle"></i> Tambah Kategori</h4>
+                            <form id="formCategory" novalidate>
+                                <input type="hidden" id="editCategoryId" value="">
+                                <div class="mb-3">
+                                    <label class="form-label-gold">Nama Kategori *</label>
+                                    <input type="text" id="newCatName" class="form-dark" placeholder="Contoh: Aksesoris Rajut" required>
+                                    <p class="form-help">Nama kategori akan ditampilkan di halaman toko.</p>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label-gold">Icon (Font Awesome class)</label>
+                                    <input type="text" id="newCatIcon" class="form-dark" placeholder="Contoh: fas fa-gem" value="fas fa-tag">
+                                    <p class="form-help">Class icon FontAwesome. Contoh: fas fa-heart, fas fa-scissors</p>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label-gold">Warna Tema</label>
+                                    <div class="d-flex gap-2 flex-wrap" id="colorPicker">
+                                        <button type="button" class="color-opt active" data-color="#C2724F" style="background:#C2724F;width:32px;height:32px;border-radius:8px;border:3px solid transparent;cursor:pointer"></button>
+                                        <button type="button" class="color-opt" data-color="#8D6B4C" style="background:#8D6B4C;width:32px;height:32px;border-radius:8px;border:3px solid transparent;cursor:pointer"></button>
+                                        <button type="button" class="color-opt" data-color="#5E8C4A" style="background:#5E8C4A;width:32px;height:32px;border-radius:8px;border:3px solid transparent;cursor:pointer"></button>
+                                        <button type="button" class="color-opt" data-color="#A8853F" style="background:#A8853F;width:32px;height:32px;border-radius:8px;border:3px solid transparent;cursor:pointer"></button>
+                                        <button type="button" class="color-opt" data-color="#4A8BA8" style="background:#4A8BA8;width:32px;height:32px;border-radius:8px;border:3px solid transparent;cursor:pointer"></button>
+                                        <button type="button" class="color-opt" data-color="#8B5CF6" style="background:#8B5CF6;width:32px;height:32px;border-radius:8px;border:3px solid transparent;cursor:pointer"></button>
+                                    </div>
+                                    <input type="hidden" id="newCatColor" value="#C2724F">
+                                </div>
+                                <div class="d-flex gap-2">
+                                    <button type="submit" class="btn-gold flex-grow-1" id="btnSaveCategory">
+                                        <i class="fas fa-save"></i> Simpan
+                                    </button>
+                                    <button type="button" class="btn-outline-custom" id="btnCancelEditCat" style="display:none">
+                                        <i class="fas fa-times"></i> Batal
+                                    </button>
+                                </div>
+                            </form>
+
+                            <hr class="my-4">
+
+                            <h5 class="panel-title mb-3" style="font-size:.95rem"><i class="fas fa-sliders-h"></i> Pengaturan Stok Minimum</h5>
+                            <div class="mb-2">
+                                <label class="form-label-gold">Threshold Stok Rendah</label>
+                                <div class="input-group">
+                                    <input type="number" id="lowStockThreshold" class="form-dark" value="10" min="1" max="100" style="border-radius:10px 0 0 10px">
+                                    <span class="input-group-text" style="background:#F1F5F9;border:1px solid var(--border);font-size:.85rem">unit</span>
+                                </div>
+                                <p class="form-help">Produk dengan stok di bawah angka ini akan muncul di peringatan.</p>
+                            </div>
+                            <button class="btn-gold w-100" id="btnSaveThreshold">
+                                <i class="fas fa-save"></i> Simpan Threshold
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Kolom Kanan: Tabel Kategori -->
+                    <div class="col-lg-8">
+                        <div class="panel h-100">
+                            <div class="panel-head">
+                                <h4 class="panel-title"><i class="fas fa-tags"></i> Daftar Kategori</h4>
+                                <div class="d-flex gap-2">
+                                    <input type="text" id="searchCategory" class="form-dark form-control-sm" placeholder="Cari kategori..." style="width:180px">
+                                </div>
+                            </div>
                             <div class="tbl-wrap">
                                 <table class="tbl">
-                                    <thead><tr><th>Nama Kategori</th><th>Jumlah Produk</th><th>Total Stok</th></tr></thead>
-                                    <tbody id="tbodyCategoriesSummary"></tbody>
+                                    <thead>
+                                        <tr>
+                                            <th style="width:50px">Icon</th>
+                                            <th>Nama Kategori</th>
+                                            <th>Slug</th>
+                                            <th>Produk</th>
+                                            <th>Total Stok</th>
+                                            <th class="text-end">Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tbodyCategoriesList"></tbody>
                                 </table>
                             </div>
                         </div>
                     </div>
                 </div>
+
+                <!-- Peringatan Stok Rendah -->
                 <div class="panel">
                     <div class="panel-head">
-                        <h3 class="panel-title"><i class="fas fa-exclamation-triangle text-warning"></i> Peringatan Stok Rendah (&le; 10 Unit)</h3>
+                        <h3 class="panel-title"><i class="fas fa-exclamation-triangle text-warning"></i> Peringatan Stok Rendah</h3>
+                        <span class="badge bg-warning text-dark" id="lowStockBadge">0 Produk</span>
                     </div>
                     <div class="tbl-wrap">
                         <table class="tbl">
-                            <thead><tr><th>Gambar</th><th>Nama Produk</th><th>Kategori</th><th>Sisa Stok</th><th>Aksi Cepat</th></tr></thead>
+                            <thead>
+                                <tr>
+                                    <th>Gambar</th>
+                                    <th>Nama Produk</th>
+                                    <th>Kategori</th>
+                                    <th>Sisa Stok</th>
+                                    <th>Harga</th>
+                                    <th>Aksi Cepat</th>
+                                </tr>
+                            </thead>
                             <tbody id="tbodyLowStock"></tbody>
                         </table>
                     </div>
@@ -382,18 +597,104 @@
             <!-- SECTION ANALYTICS & OMSET -->
             <section id="sectionAnalytics" class="d-none">
                 <div class="panel">
-                    <div class="panel-head">
-                        <h3 class="panel-title"><i class="fas fa-chart-line"></i> Laporan Analisis Omset &amp; Penjualan</h3>
-                        <div class="d-flex gap-2">
+                    <div class="panel-head flex-wrap gap-2">
+                        <div>
+                            <h3 class="panel-title mb-1"><i class="fas fa-chart-line"></i> Laporan Analisis Omset &amp; Penjualan</h3>
+                            <p class="text-muted mb-0" style="font-size:0.82rem">Analisis real-time performa transaksi, omset bersih, dan riwayat pesanan toko.</p>
+                        </div>
+                        <div class="d-flex gap-2 flex-wrap">
                             <button class="btn-outline-custom" id="btnExportCSV2"><i class="fas fa-file-csv me-1 text-success"></i> Download CSV</button>
                             <button class="btn-gold" id="btnPrintReport2"><i class="fas fa-print me-1"></i> Cetak Laporan</button>
                         </div>
                     </div>
+
+                    <!-- FILTER TANGGAL, BULAN & TAHUN -->
+                    <div class="p-3 mb-4 rounded-3" style="background:#F8FAFC; border:1px solid var(--border);">
+                        <div class="row g-2 align-items-end">
+                            <div class="col-12 col-md-3">
+                                <label class="form-label mb-1 fw-bold text-secondary" style="font-size:0.8rem;"><i class="fas fa-filter me-1" style="color:var(--gold)"></i> Filter Periode Penjualan</label>
+                                <select id="analyticsPresetSelect" class="form-select form-select-sm border-secondary-subtle">
+                                    <option value="all">Semua Waktu (All Time)</option>
+                                    <option value="today">Hari Ini</option>
+                                    <option value="yesterday">Kemarin</option>
+                                    <option value="last7">7 Hari Terakhir</option>
+                                    <option value="last30">30 Hari Terakhir</option>
+                                    <option value="this_month">Bulan Ini</option>
+                                    <option value="last_month">Bulan Lalu</option>
+                                    <option value="this_year">Tahun Ini</option>
+                                    <option value="custom_date">Tanggal Spesifik</option>
+                                    <option value="custom_month">Pilih Bulan &amp; Tahun</option>
+                                    <option value="custom_range">Rentang Tanggal Custom</option>
+                                </select>
+                            </div>
+
+                            <div class="col-12 col-sm-6 col-md-3 d-none" id="colAnalyticsDate">
+                                <label class="form-label mb-1 fw-bold text-secondary" style="font-size:0.8rem;"><i class="fas fa-calendar-day me-1"></i> Tanggal Spesifik</label>
+                                <input type="date" id="analyticsSingleDate" class="form-control form-control-sm">
+                            </div>
+
+                            <div class="col-6 col-md-2 d-none" id="colAnalyticsMonth">
+                                <label class="form-label mb-1 fw-bold text-secondary" style="font-size:0.8rem;"><i class="fas fa-calendar-alt me-1"></i> Pilih Bulan</label>
+                                <select id="analyticsMonthSelect" class="form-select form-select-sm">
+                                    <option value="0">Januari</option>
+                                    <option value="1">Februari</option>
+                                    <option value="2">Maret</option>
+                                    <option value="3">April</option>
+                                    <option value="4">Mei</option>
+                                    <option value="5">Juni</option>
+                                    <option value="6">Juli</option>
+                                    <option value="7">Agustus</option>
+                                    <option value="8">September</option>
+                                    <option value="9">Oktober</option>
+                                    <option value="10">November</option>
+                                    <option value="11">Desember</option>
+                                </select>
+                            </div>
+
+                            <div class="col-6 col-md-2 d-none" id="colAnalyticsYear">
+                                <label class="form-label mb-1 fw-bold text-secondary" style="font-size:0.8rem;"><i class="fas fa-calendar-check me-1"></i> Pilih Tahun</label>
+                                <select id="analyticsYearSelect" class="form-select form-select-sm"></select>
+                            </div>
+
+                            <div class="col-12 col-sm-6 col-md-3 d-none" id="colAnalyticsStartDate">
+                                <label class="form-label mb-1 fw-bold text-secondary" style="font-size:0.8rem;"><i class="fas fa-calendar-minus me-1"></i> Dari Tanggal</label>
+                                <input type="date" id="analyticsStartDate" class="form-control form-control-sm">
+                            </div>
+
+                            <div class="col-12 col-sm-6 col-md-3 d-none" id="colAnalyticsEndDate">
+                                <label class="form-label mb-1 fw-bold text-secondary" style="font-size:0.8rem;"><i class="fas fa-calendar-plus me-1"></i> Sampai Tanggal</label>
+                                <input type="date" id="analyticsEndDate" class="form-control form-control-sm">
+                            </div>
+
+                            <div class="col-12 col-md-auto ms-auto d-flex gap-2">
+                                <button id="btnResetAnalyticsFilter" class="btn btn-sm btn-outline-secondary rounded-2"><i class="fas fa-undo me-1"></i> Reset Filter</button>
+                            </div>
+                        </div>
+
+                        <div class="mt-2 pt-2 border-top d-flex flex-wrap justify-content-between align-items-center gap-2" style="border-color:#E2E8F0 !important;">
+                            <span class="badge bg-white text-dark border px-2 py-1.5 rounded-2 shadow-sm" style="font-size:0.8rem; font-weight:600;" id="analyticsFilterBadge">
+                                <i class="fas fa-filter text-warning me-1"></i> Periode: Semua Waktu
+                            </span>
+                            <small class="text-muted" id="analyticsFilterSummaryCount" style="font-size:0.8rem;">Menampilkan seluruh transaksi</small>
+                        </div>
+                    </div>
+
                     <div class="row g-3 mb-4" id="analyticsCards"></div>
+                    <div class="tbl-wrap mb-4">
+                        <table class="tbl">
+                            <thead><tr><th>Metrik Bisnis</th><th>Nilai Periode Terfilter</th><th>Keterangan</th></tr></thead>
+                            <tbody id="tbodyAnalyticsDetails"></tbody>
+                        </table>
+                    </div>
+
+                    <!-- TABEL RINCIAN TRANSAKSI PER TANGGAL & BULAN -->
+                    <div class="panel-head mt-4 mb-2">
+                        <h4 class="panel-title" style="font-size:1rem"><i class="fas fa-calendar-alt text-warning me-2"></i> Rincian Penjualan per Tanggal / Bulan</h4>
+                    </div>
                     <div class="tbl-wrap">
                         <table class="tbl">
-                            <thead><tr><th>Metrik Bisnis</th><th>Nilai Real-time</th><th>Keterangan</th></tr></thead>
-                            <tbody id="tbodyAnalyticsDetails"></tbody>
+                            <thead><tr><th>Tanggal / Bulan</th><th>Total Pesanan</th><th>Pesanan Selesai</th><th>Total Omset (Rp)</th><th>Rata-rata Order</th></tr></thead>
+                            <tbody id="tbodyAnalyticsDailyGroup"></tbody>
                         </table>
                     </div>
                 </div>
@@ -578,20 +879,34 @@
             { id:'prod-004', name:'Tas Rajut Estetik Handmade', category:'Aksesoris', price:135000, stock:12, description:'Tas bahu rajut bernuansa vintage modern hasil rajutan tangan presisi.', image:'https://images.unsplash.com/photo-1590874103328-eac38a683ce7?w=600', created_at:new Date().toISOString() },
             { id:'prod-005', name:'Kit Pemula Macrame Wall Hanging', category:'Paket Kit', price:95000, stock:15, description:'Paket lengkap pembuatan macrame: tali katun 4mm, gantungan kayu & modul.', image:'https://images.unsplash.com/photo-1513519245088-0e12902e5a38?w=600', created_at:new Date().toISOString() }
         ];
+        var SEED_CATEGORIES = [
+            { id:'cat-001', name:'Benang', slug:'benang', icon:'fas fa-heart', color:'#C2724F', created_at:new Date().toISOString() },
+            { id:'cat-002', name:'Alat Rajut', slug:'alat-rajut', icon:'fas fa-scissors', color:'#8D6B4C', created_at:new Date().toISOString() },
+            { id:'cat-003', name:'Aksesoris', slug:'aksesoris', icon:'fas fa-gem', color:'#A8853F', created_at:new Date().toISOString() },
+            { id:'cat-004', name:'Paket Kit', slug:'paket-kit', icon:'fas fa-box-open', color:'#5E8C4A', created_at:new Date().toISOString() }
+        ];
         var SEED_ORDERS = [
             { id:'ORD-88219401', customer_name:'Anisa Rahmawati', customer_phone:'081234567890', customer_address:'Jl. Merdeka No. 12, Ponorogo', payment_method:'Transfer Bank BCA', total:110000, status:'pending', items:[{name:'Benang Katun Milk Premium',price:25000,qty:1},{name:'Alat Rajut Aluminium Set 11 Ukuran',price:85000,qty:1}], created_at:new Date().toISOString() },
-            { id:'ORD-77192043', customer_name:'Budi Santoso', customer_phone:'085712345678', customer_address:'Jl. Diponegoro No. 45, Madiun', payment_method:'COD (Bayar di Tempat)', total:135000, status:'completed', items:[{name:'Tas Rajut Estetik Handmade',price:135000,qty:1}], created_at:new Date(Date.now()-86400000).toISOString() }
+            { id:'ORD-77192043', customer_name:'Budi Santoso', customer_phone:'085712345678', customer_address:'Jl. Diponegoro No. 45, Madiun', payment_method:'COD (Bayar di Tempat)', total:135000, status:'completed', items:[{name:'Tas Rajut Estetik Handmade',price:135000,qty:1}], created_at:new Date(Date.now()-86400000).toISOString() },
+            { id:'ORD-66281092', customer_name:'Citra Dewi', customer_phone:'082198765432', customer_address:'Jl. Gajah Mada No. 8, Solo', payment_method:'QRIS / E-Wallet', total:95000, status:'completed', items:[{name:'Kit Pemula Macrame Wall Hanging',price:95000,qty:1}], created_at:new Date(Date.now()-86400000*2).toISOString() },
+            { id:'ORD-55319804', customer_name:'Dian Sastro', customer_phone:'083812349988', customer_address:'Jl. Pahlawan No. 23, Surabaya', payment_method:'Transfer Bank Mandiri', total:210000, status:'completed', items:[{name:'Benang Wool Soft Chunky',price:42000,qty:5}], created_at:new Date(Date.now()-86400000*5).toISOString() },
+            { id:'ORD-44120933', customer_name:'Eka Kurniawan', customer_phone:'085290112233', customer_address:'Jl. Pemuda No. 7, Kediri', payment_method:'COD (Bayar di Tempat)', total:170000, status:'completed', items:[{name:'Benang Katun Milk Premium',price:25000,qty:2},{name:'Tas Rajut Estetik Handmade',price:135000,qty:1}], created_at:new Date(Date.now()-86400000*12).toISOString() },
+            { id:'ORD-33091288', customer_name:'Fani Lestari', customer_phone:'081987654321', customer_address:'Jl. Ahmad Yani No. 99, Malang', payment_method:'Transfer Bank BCA', total:350000, status:'completed', items:[{name:'Kit Pemula Macrame Wall Hanging',price:95000,qty:2},{name:'Tas Rajut Estetik Handmade',price:135000,qty:1}], created_at:new Date(Date.now()-86400000*35).toISOString() },
+            { id:'ORD-22987104', customer_name:'Gilang Ramadhan', customer_phone:'085611223344', customer_address:'Jl. Sunda No. 15, Bandung', payment_method:'QRIS / E-Wallet', total:240000, status:'completed', items:[{name:'Alat Rajut Aluminium Set 11 Ukuran',price:85000,qty:2},{name:'Benang Wool Soft Chunky',price:42000,qty:1}], created_at:new Date(Date.now()-86400000*40).toISOString() },
+            { id:'ORD-11876543', customer_name:'Hendra Wijaya', customer_phone:'082344556677', customer_address:'Jl. Riau No. 4, Yogyakarta', payment_method:'COD (Bayar di Tempat)', total:85000, status:'cancelled', items:[{name:'Alat Rajut Aluminium Set 11 Ukuran',price:85000,qty:1}], created_at:new Date(Date.now()-86400000*42).toISOString() }
         ];
 
         /* ============================================================
            STATE
            ============================================================ */
         var productsData = [];
+        var categoriesData = [];
         var ordersData = [];
         var currentSection = 'products';
         var activeImgTab = 'file';
         var modalProd = null;
         var modalOrder = null;
+        var lowStockThreshold = parseInt(localStorage.getItem('benangestetik_low_stock_threshold') || '10');
 
         /* ============================================================
            HELPERS
@@ -670,8 +985,7 @@
         /* ============================================================
            PRODUCTS: LOAD
            ============================================================ */
-        async function loadProducts() {
-            var loadedFromCloud = false;
+        function loadProducts() {
             try { productsData = JSON.parse(localStorage.getItem('benangestetik_products') || '[]'); } catch (e) { productsData = []; }
             if (!Array.isArray(productsData) || productsData.length === 0) {
                 productsData = Array.from(SEED_PRODUCTS);
@@ -680,20 +994,321 @@
             renderProductsTable();
             updateStats();
 
+            // Sync from Supabase in background
             var client = getClient();
             if (client) {
-                try {
-                    var res = await client.from('products').select('*').order('created_at', { ascending: false });
+                client.from('products').select('*').order('created_at', { ascending: false }).then(function(res) {
                     if (!res.error && Array.isArray(res.data) && res.data.length > 0) {
                         productsData = res.data;
-                        loadedFromCloud = true;
                         localStorage.setItem('benangestetik_products', JSON.stringify(productsData));
                         renderProductsTable();
                         updateStats();
+                        updateDbBadge(true);
+                    } else {
+                        updateDbBadge(false);
                     }
-                } catch (e) {}
+                }).catch(function() { updateDbBadge(false); });
+            } else {
+                updateDbBadge(false);
             }
-            updateDbBadge(loadedFromCloud);
+        }
+
+        /* ============================================================
+           CATEGORIES: LOAD
+           ============================================================ */
+        function loadCategories() {
+            // Always load from localStorage first
+            try { categoriesData = JSON.parse(localStorage.getItem('benangestetik_categories') || '[]'); } catch (e) { categoriesData = []; }
+            
+            // Seed default categories if empty
+            if (!Array.isArray(categoriesData) || categoriesData.length === 0) {
+                categoriesData = Array.from(SEED_CATEGORIES);
+                localStorage.setItem('benangestetik_categories', JSON.stringify(categoriesData));
+            }
+            
+            renderCategoriesList();
+            updateCategoryStats();
+            renderLowStockTable();
+            syncCategoryDropdowns();
+
+            // Sync from Supabase in background
+            var client = getClient();
+            if (client) {
+                client.from('categories').select('*').order('name').then(function(res) {
+                    if (!res.error && Array.isArray(res.data) && res.data.length > 0) {
+                        res.data.forEach(function(remoteCat) {
+                            var exists = categoriesData.find(function(c) { return String(c.id) === String(remoteCat.id); });
+                            if (!exists) {
+                                categoriesData.push(remoteCat);
+                            }
+                        });
+                        localStorage.setItem('benangestetik_categories', JSON.stringify(categoriesData));
+                        renderCategoriesList();
+                        updateCategoryStats();
+                        renderLowStockTable();
+                        syncCategoryDropdowns();
+                    }
+                }).catch(function() {});
+            }
+        }
+
+        /* ============================================================
+           CATEGORIES: GENERATE SLUG
+           ============================================================ */
+        function generateCategorySlug(name) {
+            return name.toLowerCase()
+                .replace(/[^a-z0-9]+/g, '-')
+                .replace(/^-+|-+$/g, '');
+        }
+
+        /* ============================================================
+           CATEGORIES: SAVE (ADD/EDIT)
+           ============================================================ */
+        function saveCategory(e) {
+            e.preventDefault();
+            var id = document.getElementById('editCategoryId').value;
+            var name = document.getElementById('newCatName').value.trim();
+            var icon = document.getElementById('newCatIcon').value.trim() || 'fas fa-tag';
+            var color = document.getElementById('newCatColor').value || '#C2724F';
+
+            if (!name) {
+                showToast('Masukkan nama kategori!', 'error');
+                return;
+            }
+
+            var btn = document.getElementById('btnSaveCategory');
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin me-1"></i> Menyimpan...';
+
+            try {
+                var slug = generateCategorySlug(name);
+                
+                if (id) {
+                    // EDIT existing
+                    var payload = { name: name, slug: slug, icon: icon, color: color, updated_at: new Date().toISOString() };
+                    
+                    var idx = categoriesData.findIndex(function(c) { return String(c.id) === String(id); });
+                    if (idx !== -1) {
+                        categoriesData[idx] = Object.assign({}, categoriesData[idx], payload);
+                    }
+                    
+                    // Sync to Supabase (background, non-blocking)
+                    var client = getClient();
+                    if (client) {
+                        client.from('categories').update(payload).eq('id', id).then(function(){}).catch(function(){});
+                    }
+                    
+                    showToast('Kategori "' + name + '" berhasil diperbarui!', 'success');
+                } else {
+                    // ADD new
+                    var newId = 'cat-' + Date.now();
+                    var newCat = { id: newId, name: name, slug: slug, icon: icon, color: color, created_at: new Date().toISOString() };
+                    
+                    categoriesData.push(newCat);
+                    
+                    // Sync to Supabase (background, non-blocking)
+                    var client = getClient();
+                    if (client) {
+                        client.from('categories').insert([newCat]).then(function(res){
+                            if (!res.error && res.data && res.data[0]) {
+                                var idx = categoriesData.findIndex(function(c) { return c.id === newId; });
+                                if (idx !== -1) categoriesData[idx] = res.data[0];
+                                localStorage.setItem('benangestetik_categories', JSON.stringify(categoriesData));
+                            }
+                        }).catch(function(){});
+                    }
+                    
+                    showToast('Kategori "' + name + '" berhasil ditambahkan!', 'success');
+                }
+
+                // Save to localStorage IMMEDIATELY
+                localStorage.setItem('benangestetik_categories', JSON.stringify(categoriesData));
+                
+                // Update UI IMMEDIATELY
+                resetCategoryForm();
+                renderCategoriesList();
+                updateCategoryStats();
+                syncCategoryDropdowns();
+            } catch (err) {
+                showToast('Gagal menyimpan kategori: ' + err.message, 'error');
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = '<i class="fas fa-save"></i> Simpan';
+            }
+        }
+
+        /* ============================================================
+           CATEGORIES: EDIT
+           ============================================================ */
+        function editCategory(id) {
+            var cat = categoriesData.find(function(c) { return String(c.id) === String(id); });
+            if (!cat) return;
+
+            document.getElementById('editCategoryId').value = cat.id;
+            document.getElementById('newCatName').value = cat.name || '';
+            document.getElementById('newCatIcon').value = cat.icon || 'fas fa-tag';
+            document.getElementById('newCatColor').value = cat.color || '#C2724F';
+            
+            // Update color picker
+            document.querySelectorAll('#colorPicker .color-opt').forEach(function(btn) {
+                btn.classList.toggle('active', btn.getAttribute('data-color') === cat.color);
+            });
+
+            document.getElementById('categoryFormTitle').innerHTML = '<i class="fas fa-edit"></i> Edit Kategori';
+            document.getElementById('btnCancelEditCat').style.display = 'block';
+        }
+
+        /* ============================================================
+           CATEGORIES: DELETE
+           ============================================================ */
+        function deleteCategory(id) {
+            var cat = categoriesData.find(function(c) { return String(c.id) === String(id); });
+            if (!cat) return;
+
+            // Check if category has products
+            var productsInCat = productsData.filter(function(p) { 
+                return (p.category || '').toLowerCase() === (cat.name || '').toLowerCase(); 
+            });
+            
+            if (productsInCat.length > 0) {
+                showToast('Tidak bisa menghapus kategori "' + cat.name + '" karena masih memiliki ' + productsInCat.length + ' produk. Pindahkan produk terlebih dahulu.', 'error');
+                return;
+            }
+
+            if (!confirm('Hapus kategori "' + cat.name + '"?')) return;
+
+            categoriesData = categoriesData.filter(function(c) { return String(c.id) !== String(id); });
+            localStorage.setItem('benangestetik_categories', JSON.stringify(categoriesData));
+            showToast('Kategori "' + cat.name + '" berhasil dihapus.', 'success');
+            renderCategoriesList();
+            updateCategoryStats();
+            syncCategoryDropdowns();
+
+            // Sync Supabase in background
+            var client = getClient();
+            if (client) {
+                client.from('categories').delete().eq('id', id).then(function() {}).catch(function() {});
+            }
+        }
+
+        /* ============================================================
+           CATEGORIES: RESET FORM
+           ============================================================ */
+        function resetCategoryForm() {
+            document.getElementById('formCategory').reset();
+            document.getElementById('editCategoryId').value = '';
+            document.getElementById('newCatIcon').value = 'fas fa-tag';
+            document.getElementById('newCatColor').value = '#C2724F';
+            document.getElementById('categoryFormTitle').innerHTML = '<i class="fas fa-plus-circle"></i> Tambah Kategori';
+            document.getElementById('btnCancelEditCat').style.display = 'none';
+            document.querySelectorAll('#colorPicker .color-opt').forEach(function(btn, idx) {
+                btn.classList.toggle('active', idx === 0);
+            });
+        }
+
+        /* ============================================================
+           CATEGORIES: RENDER TABLE
+           ============================================================ */
+        function renderCategoriesList() {
+            var tbody = document.getElementById('tbodyCategoriesList');
+            if (!tbody) return;
+
+            var search = (document.getElementById('searchCategory').value || '').toLowerCase();
+            var filtered = categoriesData.filter(function(c) {
+                return (c.name || '').toLowerCase().indexOf(search) !== -1;
+            });
+
+            if (filtered.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="6" class="text-center py-4 text-muted">Belum ada kategori.</td></tr>';
+                return;
+            }
+
+            var html = '';
+            filtered.forEach(function(c) {
+                // Count products in this category
+                var prodCount = productsData.filter(function(p) { 
+                    return (p.category || '').toLowerCase() === (c.name || '').toLowerCase(); 
+                }).length;
+                
+                // Total stock
+                var totalStock = productsData
+                    .filter(function(p) { return (p.category || '').toLowerCase() === (c.name || '').toLowerCase(); })
+                    .reduce(function(sum, p) { return sum + (Number(p.stock) || 0); }, 0);
+
+                html += '<tr>' +
+                    '<td data-label="Icon"><div style="width:36px;height:36px;border-radius:10px;background:' + (c.color || '#C2724F') + '20;display:flex;align-items:center;justify-content:center"><i class="' + (c.icon || 'fas fa-tag') + '" style="color:' + (c.color || '#C2724F') + '"></i></div></td>' +
+                    '<td data-label="Nama"><strong class="text-cream">' + sanitize(c.name) + '</strong></td>' +
+                    '<td data-label="Slug"><code class="text-muted" style="font-size:.8rem">' + sanitize(c.slug || '-') + '</code></td>' +
+                    '<td data-label="Produk"><span class="badge bg-light text-dark border">' + prodCount + ' produk</span></td>' +
+                    '<td data-label="Stok"><strong style="color:var(--gold)">' + totalStock + ' unit</strong></td>' +
+                    '<td data-label="Aksi" class="text-end">' +
+                        '<button class="btn-act edit me-1" data-edit-cat="' + c.id + '" title="Edit Kategori"><i class="fas fa-edit"></i></button>' +
+                        '<button class="btn-act del" data-delete-cat="' + c.id + '" title="Hapus Kategori"><i class="fas fa-trash-alt"></i></button>' +
+                    '</td></tr>';
+            });
+            tbody.innerHTML = html;
+        }
+
+        /* ============================================================
+           CATEGORIES: UPDATE STATS
+           ============================================================ */
+        function updateCategoryStats() {
+            var totalCat = categoriesData.length;
+            var totalProd = productsData.length;
+            var totalStock = productsData.reduce(function(sum, p) { return sum + (Number(p.stock) || 0); }, 0);
+            var lowStockCount = productsData.filter(function(p) { return (Number(p.stock) || 0) <= lowStockThreshold; }).length;
+
+            document.getElementById('statTotalCategories').textContent = totalCat;
+            document.getElementById('statTotalProductsAll').textContent = totalProd;
+            document.getElementById('statTotalStockAll').textContent = totalStock;
+            document.getElementById('statLowStockCount').textContent = lowStockCount;
+            document.getElementById('lowStockBadge').textContent = lowStockCount + ' Produk';
+        }
+
+        /* ============================================================
+           CATEGORIES: SYNC DROPDOWNS
+           ============================================================ */
+        function syncCategoryDropdowns() {
+            var filterSelect = document.getElementById('filterCategory');
+            var prodSelect = document.getElementById('prodCategory');
+            
+            // Save current values
+            var filterVal = filterSelect.value;
+            var prodVal = prodSelect.value;
+
+            // Clear and rebuild
+            filterSelect.innerHTML = '<option value="all">Semua Kategori</option>';
+            prodSelect.innerHTML = '<option value="">Pilih Kategori...</option>';
+
+            categoriesData.forEach(function(c) {
+                var opt1 = document.createElement('option');
+                opt1.value = c.name;
+                opt1.textContent = c.name;
+                filterSelect.appendChild(opt1);
+
+                var opt2 = document.createElement('option');
+                opt2.value = c.name;
+                opt2.textContent = c.name;
+                prodSelect.appendChild(opt2);
+            });
+
+            // Restore values
+            filterSelect.value = filterVal;
+            prodSelect.value = prodVal;
+        }
+
+        /* ============================================================
+           CATEGORIES: SAVE THRESHOLD
+           ============================================================ */
+        function saveThreshold() {
+            var val = parseInt(document.getElementById('lowStockThreshold').value) || 10;
+            if (val < 1) val = 1;
+            if (val > 100) val = 100;
+            lowStockThreshold = val;
+            localStorage.setItem('benangestetik_low_stock_threshold', val.toString());
+            showToast('Threshold stok rendah diset ke ' + val + ' unit!', 'success');
+            renderCategoriesSection();
+            updateCategoryStats();
         }
 
         /* ============================================================
@@ -721,13 +1336,13 @@
                 var imgUrl = (typeof safeImageUrl === 'function' && safeImageUrl(p.image)) ? safeImageUrl(p.image) : (p.image || 'https://images.unsplash.com/photo-1608248597261-e9d690a6e879?w=600');
                 var fp = typeof formatRupiah === 'function' ? formatRupiah(p.price) : fmtRp(p.price);
                 html += '<tr>' +
-                    '<td><img src="' + imgUrl + '" class="prod-thumb" alt="Product" onclick="window.open(\'' + imgUrl.replace(/'/g,"\\'") + '\')"></td>' +
-                    '<td><strong class="text-cream">' + sanitize(p.name) + '</strong></td>' +
-                    '<td><span class="badge-c badge-cat">' + sanitize(p.category || 'Umum') + '</span></td>' +
-                    '<td><strong style="color:var(--gold)">' + fp + '</strong></td>' +
-                    '<td>' + (p.stock || 0) + ' unit</td>' +
-                    '<td><small class="text-muted d-inline-block text-truncate" style="max-width:180px">' + sanitize(p.description || '-') + '</small></td>' +
-                    '<td class="text-end">' +
+                    '<td data-label="Gambar"><img src="' + imgUrl + '" class="prod-thumb" alt="Product" onclick="window.open(\'' + imgUrl.replace(/'/g,"\\'") + '\')"></td>' +
+                    '<td data-label="Nama"><strong class="text-cream">' + sanitize(p.name) + '</strong></td>' +
+                    '<td data-label="Kategori"><span class="badge-c badge-cat">' + sanitize(p.category || 'Umum') + '</span></td>' +
+                    '<td data-label="Harga"><strong style="color:var(--gold)">' + fp + '</strong></td>' +
+                    '<td data-label="Stok">' + (p.stock || 0) + ' unit</td>' +
+                    '<td data-label="Deskripsi"><small class="text-muted d-inline-block text-truncate" style="max-width:180px">' + sanitize(p.description || '-') + '</small></td>' +
+                    '<td data-label="Aksi" class="text-end">' +
                         '<button class="btn-act edit me-1" data-edit="' + p.id + '" title="Edit"><i class="fas fa-edit"></i></button>' +
                         '<button class="btn-act del" data-delete="' + p.id + '" title="Hapus"><i class="fas fa-trash-alt"></i></button>' +
                     '</td></tr>';
@@ -801,7 +1416,7 @@
             });
         }
 
-        async function saveProduct(e) {
+        function saveProduct(e) {
             e.preventDefault();
             var id = document.getElementById('prodId').value;
             var name = document.getElementById('prodName').value.trim();
@@ -812,41 +1427,29 @@
             var oldImg = document.getElementById('prodOldImg').value;
             var finalImg = oldImg || 'https://images.unsplash.com/photo-1608248597261-e9d690a6e879?w=600';
 
-            var btnSave = document.getElementById('btnSaveProduct');
-            btnSave.disabled = true;
-            btnSave.innerHTML = '<i class="fas fa-spinner fa-spin me-1"></i> Menyimpan...';
+            var slugStr = typeof generateSlug === 'function' ? generateSlug(name) : name.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+            var productId = id || ('prod-' + Date.now());
+            var payload = {
+                id: productId, name: name, category: category, price: price,
+                stock: stock, description: description, image: finalImg,
+                slug: slugStr, updated_at: new Date().toISOString()
+            };
 
-            try {
-                if (activeImgTab === 'file') {
-                    var fileInput = document.getElementById('imageFile');
-                    if (fileInput && fileInput.files && fileInput.files[0]) {
-                        finalImg = await readFileAsDataURL(fileInput.files[0]);
-                    }
-                } else {
-                    var urlInput = document.getElementById('imageUrl').value.trim();
-                    if (urlInput) finalImg = urlInput;
+            var doFileImg = Promise.resolve();
+            if (activeImgTab === 'file') {
+                var fileInput = document.getElementById('imageFile');
+                if (fileInput && fileInput.files && fileInput.files[0]) {
+                    doFileImg = readFileAsDataURL(fileInput.files[0]);
                 }
+            } else {
+                var urlInput = document.getElementById('imageUrl').value.trim();
+                if (urlInput) { payload.image = urlInput; }
+            }
 
-                var slugStr = typeof generateSlug === 'function' ? generateSlug(name) : name.toLowerCase().replace(/[^a-z0-9]+/g, '-');
-                var productId = id || ('prod-' + Date.now());
-                var payload = {
-                    id: productId, name: name, category: category, price: price,
-                    stock: stock, description: description, image: finalImg,
-                    slug: slugStr, updated_at: new Date().toISOString()
-                };
+            doFileImg.then(function(imgData) {
+                if (imgData) payload.image = imgData;
 
-                var client = getClient();
-                if (client) {
-                    try {
-                        if (id) {
-                            await client.from('products').update(payload).eq('id', id);
-                        } else {
-                            payload.created_at = new Date().toISOString();
-                            await client.from('products').insert([payload]);
-                        }
-                    } catch (spErr) {}
-                }
-
+                // Save locally first
                 if (id) {
                     var idx = productsData.findIndex(function (p) { return String(p.id) === String(id); });
                     if (idx !== -1) productsData[idx] = Object.assign({}, productsData[idx], payload);
@@ -861,42 +1464,45 @@
                 localStorage.setItem('benangestetik_products', JSON.stringify(productsData));
                 if (modalProd) modalProd.hide();
                 renderProductsTable();
+                renderCategoriesSection();
                 updateStats();
-            } catch (err) {
+
+                // Sync Supabase in background
+                var client = getClient();
+                if (client) {
+                    client.from('products').upsert(payload).then(function() {}).catch(function() {});
+                }
+            }).catch(function(err) {
                 showToast('Gagal menyimpan produk: ' + (err.message || err), 'error');
-            } finally {
-                btnSave.disabled = false;
-                btnSave.innerHTML = '<i class="fas fa-save"></i> Simpan Produk';
-            }
+            });
         }
 
         /* ============================================================
            PRODUCTS: DELETE
            ============================================================ */
-        async function deleteProduct(id) {
+        function deleteProduct(id) {
             var prod = productsData.find(function (p) { return String(p.id) === String(id); });
             var pName = prod ? prod.name : 'Produk';
             if (!confirm('Apakah Anda yakin ingin menghapus produk "' + pName + '"?')) return;
 
-            try {
-                var client = getClient();
-                if (client) {
-                    try { await client.from('products').delete().eq('id', id); } catch (e) {}
-                }
-                productsData = productsData.filter(function (p) { return String(p.id) !== String(id); });
-                localStorage.setItem('benangestetik_products', JSON.stringify(productsData));
-                showToast('Produk "' + pName + '" telah dihapus.', 'success');
-                renderProductsTable();
-                updateStats();
-            } catch (err) {
-                showToast('Gagal menghapus produk: ' + err.message, 'error');
+            productsData = productsData.filter(function (p) { return String(p.id) !== String(id); });
+            localStorage.setItem('benangestetik_products', JSON.stringify(productsData));
+            showToast('Produk "' + pName + '" telah dihapus.', 'success');
+            renderProductsTable();
+            renderCategoriesSection();
+            updateStats();
+
+            // Sync Supabase in background
+            var client = getClient();
+            if (client) {
+                client.from('products').delete().eq('id', id).then(function() {}).catch(function() {});
             }
         }
 
         /* ============================================================
            ORDERS: LOAD
            ============================================================ */
-        async function loadOrders() {
+        function loadOrders() {
             try { ordersData = JSON.parse(localStorage.getItem('benangestetik_orders') || '[]'); } catch (e) { ordersData = []; }
             if (!Array.isArray(ordersData) || ordersData.length === 0) {
                 ordersData = Array.from(SEED_ORDERS);
@@ -905,17 +1511,17 @@
             renderOrdersTable();
             updateStats();
 
+            // Sync from Supabase in background
             var client = getClient();
             if (client) {
-                try {
-                    var res = await client.from('orders').select('*').order('created_at', { ascending: false });
+                client.from('orders').select('*').order('created_at', { ascending: false }).then(function(res) {
                     if (!res.error && Array.isArray(res.data) && res.data.length > 0) {
                         ordersData = res.data;
                         localStorage.setItem('benangestetik_orders', JSON.stringify(ordersData));
                         renderOrdersTable();
                         updateStats();
                     }
-                } catch (e) {}
+                }).catch(function() {});
             }
         }
 
@@ -946,14 +1552,14 @@
                 var fd = typeof formatDate === 'function' ? formatDate(o.created_at) : new Date(o.created_at || Date.now()).toLocaleDateString('id-ID');
 
                 html += '<tr>' +
-                    '<td><code style="color:var(--gold)">#' + shortId + '</code></td>' +
-                    '<td><strong>' + sanitize(o.customer_name || 'Pelanggan') + '</strong></td>' +
-                    '<td><a href="https://wa.me/62' + String(o.customer_phone || '').replace(/[^0-9]/g, '') + '" target="_blank" class="text-decoration-none text-muted"><i class="fab fa-whatsapp me-1 text-success"></i>' + sanitize(o.customer_phone || '-') + '</a></td>' +
-                    '<td><strong style="color:var(--gold)">' + fp + '</strong></td>' +
-                    '<td><small class="text-muted">' + sanitize(o.payment_method || 'COD') + '</small></td>' +
-                    '<td>' + badge + '</td>' +
-                    '<td><small class="text-muted">' + fd + '</small></td>' +
-                    '<td class="text-end">' +
+                    '<td data-label="ID"><code style="color:var(--gold)">#' + shortId + '</code></td>' +
+                    '<td data-label="Pelanggan"><strong>' + sanitize(o.customer_name || 'Pelanggan') + '</strong></td>' +
+                    '<td data-label="Telepon"><a href="https://wa.me/62' + String(o.customer_phone || '').replace(/[^0-9]/g, '') + '" target="_blank" class="text-decoration-none text-muted"><i class="fab fa-whatsapp me-1 text-success"></i>' + sanitize(o.customer_phone || '-') + '</a></td>' +
+                    '<td data-label="Total"><strong style="color:var(--gold)">' + fp + '</strong></td>' +
+                    '<td data-label="Metode"><small class="text-muted">' + sanitize(o.payment_method || 'COD') + '</small></td>' +
+                    '<td data-label="Status">' + badge + '</td>' +
+                    '<td data-label="Tanggal"><small class="text-muted">' + fd + '</small></td>' +
+                    '<td data-label="Aksi" class="text-end">' +
                         '<div class="dropdown d-inline-block me-1">' +
                             '<button class="btn btn-sm btn-outline-secondary dropdown-toggle py-0 text-muted" style="font-size:.75rem" data-bs-toggle="dropdown">Status</button>' +
                             '<ul class="dropdown-menu dropdown-menu-end">' +
@@ -969,19 +1575,20 @@
             tbody.innerHTML = html;
         }
 
-        async function updateOrderStatus(id, newStatus) {
-            try {
-                var client = getClient();
-                if (client) {
-                    try { await client.from('orders').update({ status: newStatus }).eq('id', id); } catch (e) {}
-                }
-                var ord = ordersData.find(function (o) { return String(o.id) === String(id); });
-                if (ord) { ord.status = newStatus; localStorage.setItem('benangestetik_orders', JSON.stringify(ordersData)); }
-                showToast('Status pesanan berhasil diperbarui!', 'success');
-                renderOrdersTable();
-                updateStats();
-            } catch (err) {
-                showToast('Gagal mengubah status: ' + err.message, 'error');
+        function updateOrderStatus(id, newStatus) {
+            var ord = ordersData.find(function (o) { return String(o.id) === String(id); });
+            if (ord) {
+                ord.status = newStatus;
+                localStorage.setItem('benangestetik_orders', JSON.stringify(ordersData));
+            }
+            showToast('Status pesanan berhasil diperbarui!', 'success');
+            renderOrdersTable();
+            updateStats();
+
+            // Sync Supabase in background
+            var client = getClient();
+            if (client) {
+                client.from('orders').update({ status: newStatus }).eq('id', id).then(function() {}).catch(function() {});
             }
         }
 
@@ -1057,44 +1664,35 @@
            CATEGORIES SECTION
            ============================================================ */
         function renderCategoriesSection() {
-            var summaryTbody = document.getElementById('tbodyCategoriesSummary');
+            renderCategoriesList();
+            updateCategoryStats();
+            renderLowStockTable();
+        }
+
+        function renderLowStockTable() {
             var lowTbody = document.getElementById('tbodyLowStock');
+            if (!lowTbody) return;
 
-            var catMap = {};
-            productsData.forEach(function (p) {
-                var cat = p.category || 'Umum';
-                if (!catMap[cat]) catMap[cat] = { count: 0, stock: 0 };
-                catMap[cat].count++;
-                catMap[cat].stock += (Number(p.stock) || 0);
-            });
-
-            var sumHtml = '';
-            var keys = Object.keys(catMap);
-            if (keys.length === 0) {
-                sumHtml = '<tr><td colspan="3" class="text-center py-3 text-muted">Belum ada kategori.</td></tr>';
-            } else {
-                keys.forEach(function (k) {
-                    sumHtml += '<tr><td><span class="badge-c badge-cat">' + sanitize(k) + '</span></td><td>' + catMap[k].count + ' produk</td><td><strong>' + catMap[k].stock + ' unit</strong></td></tr>';
-                });
-            }
-            if (summaryTbody) summaryTbody.innerHTML = sumHtml;
-
-            var lowProds = productsData.filter(function (p) { return (Number(p.stock) || 0) <= 10; });
-            var lowHtml = '';
+            var lowProds = productsData.filter(function (p) { return (Number(p.stock) || 0) <= lowStockThreshold; });
+            
             if (lowProds.length === 0) {
-                lowHtml = '<tr><td colspan="5" class="text-center py-3 text-success"><i class="fas fa-check-circle me-1"></i> Semua produk memiliki stok cukup (&gt; 10 unit).</td></tr>';
-            } else {
-                lowProds.forEach(function (p) {
-                    var imgUrl = (typeof safeImageUrl === 'function' && safeImageUrl(p.image)) ? safeImageUrl(p.image) : (p.image || '');
-                    lowHtml += '<tr>' +
-                        '<td><img src="' + imgUrl + '" class="prod-thumb" alt="Product"></td>' +
-                        '<td><strong>' + sanitize(p.name) + '</strong></td>' +
-                        '<td><span class="badge-c badge-cat">' + sanitize(p.category || 'Umum') + '</span></td>' +
-                        '<td><span class="badge-c badge-cancel">' + (p.stock || 0) + ' unit</span></td>' +
-                        '<td><button class="btn btn-sm btn-outline-success py-1" data-quick-stock="' + p.id + '"><i class="fas fa-plus me-1"></i> +10 Stok</button></td></tr>';
-                });
+                lowTbody.innerHTML = '<tr><td colspan="6" class="text-center py-3 text-success"><i class="fas fa-check-circle me-1"></i> Semua produk memiliki stok cukup (&gt; ' + lowStockThreshold + ' unit).</td></tr>';
+                return;
             }
-            if (lowTbody) lowTbody.innerHTML = lowHtml;
+
+            var html = '';
+            lowProds.forEach(function (p) {
+                var imgUrl = (typeof safeImageUrl === 'function' && safeImageUrl(p.image)) ? safeImageUrl(p.image) : (p.image || '');
+                var fp = typeof formatRupiah === 'function' ? formatRupiah(p.price) : fmtRp(p.price);
+                html += '<tr>' +
+                    '<td data-label="Gambar"><img src="' + imgUrl + '" class="prod-thumb" alt="Product"></td>' +
+                    '<td data-label="Produk"><strong>' + sanitize(p.name) + '</strong></td>' +
+                    '<td data-label="Kategori"><span class="badge-c badge-cat">' + sanitize(p.category || 'Umum') + '</span></td>' +
+                    '<td data-label="Stok"><span class="badge-c badge-cancel">' + (p.stock || 0) + ' unit</span></td>' +
+                    '<td data-label="Harga"><span style="color:var(--gold)">' + fp + '</span></td>' +
+                    '<td data-label="Aksi"><button class="btn btn-sm btn-outline-success py-1" data-quick-stock="' + p.id + '"><i class="fas fa-plus me-1"></i> +10 Stok</button></td></tr>';
+            });
+            lowTbody.innerHTML = html;
         }
 
         function quickAddStock(id, amount) {
@@ -1112,60 +1710,230 @@
             updateStats();
         }
 
-        function addNewCategory() {
-            var inp = document.getElementById('newCatName');
-            var val = inp ? inp.value.trim() : '';
-            if (!val) { showToast('Masukkan nama kategori baru!', 'error'); return; }
+        /* ============================================================
+           ANALYTICS FILTER HELPERS
+           ============================================================ */
+        function getAnalyticsFilteredOrders() {
+            var preset = document.getElementById('analyticsPresetSelect').value;
+            var now = new Date();
+            var today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+            var filtered = ordersData;
 
-            var select = document.getElementById('filterCategory');
-            var prodSelect = document.getElementById('prodCategory');
-            var exists = false;
-            for (var i = 0; i < select.options.length; i++) {
-                if (select.options[i].value.toLowerCase() === val.toLowerCase()) exists = true;
+            if (preset === 'today') {
+                filtered = ordersData.filter(function(o) {
+                    var d = new Date(o.created_at); return d >= today;
+                });
+            } else if (preset === 'yesterday') {
+                var yesterday = new Date(today); yesterday.setDate(yesterday.getDate() - 1);
+                filtered = ordersData.filter(function(o) {
+                    var d = new Date(o.created_at); return d >= yesterday && d < today;
+                });
+            } else if (preset === 'last7') {
+                var since7 = new Date(today); since7.setDate(since7.getDate() - 7);
+                filtered = ordersData.filter(function(o) { return new Date(o.created_at) >= since7; });
+            } else if (preset === 'last30') {
+                var since30 = new Date(today); since30.setDate(since30.getDate() - 30);
+                filtered = ordersData.filter(function(o) { return new Date(o.created_at) >= since30; });
+            } else if (preset === 'this_month') {
+                var monthStart = new Date(now.getFullYear(), now.getMonth(), 1);
+                filtered = ordersData.filter(function(o) { return new Date(o.created_at) >= monthStart; });
+            } else if (preset === 'last_month') {
+                var lastMonthStart = new Date(now.getFullYear(), now.getMonth() - 1, 1);
+                var thisMonthStart = new Date(now.getFullYear(), now.getMonth(), 1);
+                filtered = ordersData.filter(function(o) {
+                    var d = new Date(o.created_at); return d >= lastMonthStart && d < thisMonthStart;
+                });
+            } else if (preset === 'this_year') {
+                var yearStart = new Date(now.getFullYear(), 0, 1);
+                filtered = ordersData.filter(function(o) { return new Date(o.created_at) >= yearStart; });
+            } else if (preset === 'custom_date') {
+                var sd = document.getElementById('analyticsSingleDate').value;
+                if (sd) {
+                    var pickDay = new Date(sd + 'T00:00:00');
+                    var nextDay = new Date(pickDay); nextDay.setDate(nextDay.getDate() + 1);
+                    filtered = ordersData.filter(function(o) {
+                        var d = new Date(o.created_at); return d >= pickDay && d < nextDay;
+                    });
+                }
+            } else if (preset === 'custom_month') {
+                var selMonth = parseInt(document.getElementById('analyticsMonthSelect').value);
+                var selYear = parseInt(document.getElementById('analyticsYearSelect').value);
+                if (!isNaN(selMonth) && !isNaN(selYear)) {
+                    var mStart = new Date(selYear, selMonth, 1);
+                    var mEnd = new Date(selYear, selMonth + 1, 1);
+                    filtered = ordersData.filter(function(o) {
+                        var d = new Date(o.created_at); return d >= mStart && d < mEnd;
+                    });
+                }
+            } else if (preset === 'custom_range') {
+                var rs = document.getElementById('analyticsStartDate').value;
+                var re = document.getElementById('analyticsEndDate').value;
+                if (rs && re) {
+                    var rStart = new Date(rs + 'T00:00:00');
+                    var rEnd = new Date(re + 'T23:59:59');
+                    filtered = ordersData.filter(function(o) {
+                        var d = new Date(o.created_at); return d >= rStart && d <= rEnd;
+                    });
+                }
             }
-            if (!exists) {
-                var opt1 = document.createElement('option'); opt1.value = val; opt1.textContent = val; select.appendChild(opt1);
-                var opt2 = document.createElement('option'); opt2.value = val; opt2.textContent = val; prodSelect.appendChild(opt2);
+            return filtered;
+        }
+
+        function getAnalyticsFilterLabel() {
+            var preset = document.getElementById('analyticsPresetSelect').value;
+            var labels = {
+                'all': 'Semua Waktu', 'today': 'Hari Ini', 'yesterday': 'Kemarin',
+                'last7': '7 Hari Terakhir', 'last30': '30 Hari Terakhir',
+                'this_month': 'Bulan Ini', 'last_month': 'Bulan Lalu', 'this_year': 'Tahun Ini',
+                'custom_date': 'Tanggal Spesifik', 'custom_month': 'Pilih Bulan & Tahun',
+                'custom_range': 'Rentang Custom'
+            };
+            return labels[preset] || 'Semua Waktu';
+        }
+
+        function updateAnalyticsFilterBadge() {
+            var badge = document.getElementById('analyticsFilterBadge');
+            var countEl = document.getElementById('analyticsFilterSummaryCount');
+            var filtered = getAnalyticsFilteredOrders();
+            if (badge) badge.innerHTML = '<i class="fas fa-filter text-warning me-1"></i> Periode: ' + getAnalyticsFilterLabel();
+            if (countEl) countEl.textContent = 'Menampilkan ' + filtered.length + ' dari ' + ordersData.length + ' transaksi';
+        }
+
+        function toggleAnalyticsFilterCols() {
+            var preset = document.getElementById('analyticsPresetSelect').value;
+            var show = function(id, v) { var el = document.getElementById(id); if (el) el.classList.toggle('d-none', !v); };
+            show('colAnalyticsDate', preset === 'custom_date');
+            show('colAnalyticsMonth', preset === 'custom_month');
+            show('colAnalyticsYear', preset === 'custom_month');
+            show('colAnalyticsStartDate', preset === 'custom_range');
+            show('colAnalyticsEndDate', preset === 'custom_range');
+        }
+
+        function populateAnalyticsYearSelect() {
+            var sel = document.getElementById('analyticsYearSelect');
+            if (!sel) return;
+            var curYear = new Date().getFullYear();
+            sel.innerHTML = '';
+            for (var y = curYear; y >= curYear - 5; y--) {
+                var opt = document.createElement('option'); opt.value = y; opt.textContent = y;
+                sel.appendChild(opt);
             }
-            showToast('Kategori "' + val + '" berhasil ditambahkan!', 'success');
-            if (inp) inp.value = '';
-            renderCategoriesSection();
         }
 
         /* ============================================================
-           ANALYTICS SECTION
+           ANALYTICS: RENDER
            ============================================================ */
         function renderAnalyticsSection() {
             var cardsBox = document.getElementById('analyticsCards');
             var detailsTbody = document.getElementById('tbodyAnalyticsDetails');
+            var dailyTbody = document.getElementById('tbodyAnalyticsDailyGroup');
 
+            var filtered = getAnalyticsFilteredOrders();
             var totalRev = 0, completedCount = 0, pendingCount = 0, cancelCount = 0;
-            ordersData.forEach(function (o) {
+            filtered.forEach(function (o) {
                 var st = (o.status || 'pending').toLowerCase();
                 if (st === 'completed') { completedCount++; totalRev += (Number(o.total) || 0); }
                 else if (st === 'cancelled') cancelCount++;
                 else pendingCount++;
             });
-            var avgOrder = completedCount > 0 ? (totalRev / completedCount) : 0;
+            var avgOrder = completedCount > 0 ? Math.round(totalRev / completedCount) : 0;
+            var completionRate = filtered.length > 0 ? Math.round((completedCount / filtered.length) * 100) : 0;
 
+            // Stat cards
             if (cardsBox) {
                 cardsBox.innerHTML =
-                    '<div class="col-6 col-md-3"><div class="stat-card"><div class="stat-icon green"><i class="fas fa-coins"></i></div><div><div class="stat-val">' + (typeof formatRupiah === 'function' ? formatRupiah(totalRev) : fmtRp(totalRev)) + '</div><div class="stat-label">Total Omset Bersih</div></div></div></div>' +
+                    '<div class="col-6 col-md-3"><div class="stat-card"><div class="stat-icon green"><i class="fas fa-coins"></i></div><div><div class="stat-val">' + fmtRp(totalRev) + '</div><div class="stat-label">Total Omset Bersih</div></div></div></div>' +
                     '<div class="col-6 col-md-3"><div class="stat-card"><div class="stat-icon gold"><i class="fas fa-check-circle"></i></div><div><div class="stat-val">' + completedCount + ' Transaksi</div><div class="stat-label">Pesanan Sukses</div></div></div></div>' +
-                    '<div class="col-6 col-md-3"><div class="stat-card"><div class="stat-icon terra"><i class="fas fa-calculator"></i></div><div><div class="stat-val">' + (typeof formatRupiah === 'function' ? formatRupiah(avgOrder) : fmtRp(Math.round(avgOrder))) + '</div><div class="stat-label">Rata-rata Order</div></div></div></div>' +
-                    '<div class="col-6 col-md-3"><div class="stat-card"><div class="stat-icon yellow"><i class="fas fa-percent"></i></div><div><div class="stat-val">' + (ordersData.length > 0 ? Math.round((completedCount / ordersData.length) * 100) : 0) + '%</div><div class="stat-label">Tingkat Penyelesaian</div></div></div></div>';
+                    '<div class="col-6 col-md-3"><div class="stat-card"><div class="stat-icon terra"><i class="fas fa-calculator"></i></div><div><div class="stat-val">' + fmtRp(avgOrder) + '</div><div class="stat-label">Rata-rata Order</div></div></div></div>' +
+                    '<div class="col-6 col-md-3"><div class="stat-card"><div class="stat-icon yellow"><i class="fas fa-percent"></i></div><div><div class="stat-val">' + completionRate + '%</div><div class="stat-label">Tingkat Penyelesaian</div></div></div></div>';
             }
 
+            // Details table
+            var totalFiltered = filtered.length;
+            var dateRangeText = getAnalyticsFilterLabel();
             if (detailsTbody) {
                 detailsTbody.innerHTML =
+                    '<tr><td>Periode Filter</td><td><strong><i class="fas fa-calendar me-1" style="color:var(--gold)"></i> ' + dateRangeText + '</strong></td><td>Filter aktif pada laporan ini</td></tr>' +
+                    '<tr><td>Total Transaksi Periode Ini</td><td><strong>' + totalFiltered + ' Pesanan</strong></td><td>Jumlah transaksi sesuai filter periode</td></tr>' +
                     '<tr><td>Total Katalog Produk</td><td><strong>' + productsData.length + ' Produk</strong></td><td>Jumlah total varian item yang tersedia</td></tr>' +
-                    '<tr><td>Total Pesanan Diterima</td><td><strong>' + ordersData.length + ' Pesanan</strong></td><td>Seluruh transaksi masuk ke sistem</td></tr>' +
                     '<tr><td>Pesanan Selesai (Completed)</td><td><span class="badge-c badge-ok">' + completedCount + ' Pesanan</span></td><td>Transaksi berhasil dibayar dan dikirim</td></tr>' +
                     '<tr><td>Pesanan Pending (Waiting)</td><td><span class="badge-c badge-pending">' + pendingCount + ' Pesanan</span></td><td>Menunggu konfirmasi admin / verifikasi bayar</td></tr>' +
                     '<tr><td>Pesanan Dibatalkan (Cancelled)</td><td><span class="badge-c badge-cancel">' + cancelCount + ' Pesanan</span></td><td>Pesanan yang dibatalkan pelanggan</td></tr>' +
-                    '<tr><td>Total Estimasi Omset Penjualan</td><td><strong style="color:var(--gold);font-size:1.1rem">' + (typeof formatRupiah === 'function' ? formatRupiah(totalRev) : fmtRp(totalRev)) + '</strong></td><td>Total pemasukan dari order completed</td></tr>';
+                    '<tr><td>Total Estimasi Omset Penjualan</td><td><strong style="color:var(--gold);font-size:1.1rem">' + fmtRp(totalRev) + '</strong></td><td>Total pemasukan dari order completed</td></tr>' +
+                    '<tr><td>Rata-rata Nilai Per Order</td><td><strong style="color:var(--gold)">' + fmtRp(avgOrder) + '</strong></td><td>Dihitung dari ' + completedCount + ' order selesai</td></tr>';
             }
+
+            // Daily / Monthly grouping table
+            if (dailyTbody) {
+                var dailyGroup = {};
+                filtered.forEach(function(o) {
+                    var dStr = (o.created_at || '').substring(0, 10) || 'Lainnya';
+                    if (!dailyGroup[dStr]) {
+                        dailyGroup[dStr] = { totalOrders: 0, completedOrders: 0, revenue: 0 };
+                    }
+                    dailyGroup[dStr].totalOrders++;
+                    var st = (o.status || 'pending').toLowerCase();
+                    if (st === 'completed') {
+                        dailyGroup[dStr].completedOrders++;
+                        dailyGroup[dStr].revenue += (Number(o.total) || 0);
+                    }
+                });
+
+                var dates = Object.keys(dailyGroup).sort().reverse();
+                if (dates.length === 0) {
+                    dailyTbody.innerHTML = '<tr><td colspan="5" class="text-center py-3 text-muted">Tidak ada data transaksi pada periode ini.</td></tr>';
+                } else {
+                    var dHtml = '';
+                    dates.forEach(function(dKey) {
+                        var g = dailyGroup[dKey];
+                        var formattedD = typeof formatDate === 'function' ? formatDate(dKey) : dKey;
+                        var avg = g.completedOrders > 0 ? Math.round(g.revenue / g.completedOrders) : 0;
+                        dHtml += '<tr>' +
+                            '<td><strong class="text-cream"><i class="fas fa-calendar-day me-1 text-warning"></i> ' + formattedD + '</strong></td>' +
+                            '<td>' + g.totalOrders + ' Pesanan</td>' +
+                            '<td><span class="badge-c badge-ok">' + g.completedOrders + ' Selesai</span></td>' +
+                            '<td><strong style="color:var(--gold)">' + fmtRp(g.revenue) + '</strong></td>' +
+                            '<td>' + fmtRp(avg) + '</td>' +
+                            '</tr>';
+                    });
+                    dailyTbody.innerHTML = dHtml;
+                }
+            }
+
+            updateAnalyticsFilterBadge();
         }
+
+        /* ============================================================
+           ANALYTICS: EVENT LISTENERS
+           ============================================================ */
+        (function() {
+            var presetSel = document.getElementById('analyticsPresetSelect');
+            if (presetSel) {
+                presetSel.addEventListener('change', function() {
+                    toggleAnalyticsFilterCols();
+                    renderAnalyticsSection();
+                });
+            }
+            var singleDate = document.getElementById('analyticsSingleDate');
+            if (singleDate) singleDate.addEventListener('change', function() { renderAnalyticsSection(); });
+            var monthSel = document.getElementById('analyticsMonthSelect');
+            if (monthSel) monthSel.addEventListener('change', function() { renderAnalyticsSection(); });
+            var yearSel = document.getElementById('analyticsYearSelect');
+            if (yearSel) yearSel.addEventListener('change', function() { renderAnalyticsSection(); });
+            var startDate = document.getElementById('analyticsStartDate');
+            if (startDate) startDate.addEventListener('change', function() { renderAnalyticsSection(); });
+            var endDate = document.getElementById('analyticsEndDate');
+            if (endDate) endDate.addEventListener('change', function() { renderAnalyticsSection(); });
+            var btnReset = document.getElementById('btnResetAnalyticsFilter');
+            if (btnReset) {
+                btnReset.addEventListener('click', function() {
+                    if (presetSel) presetSel.value = 'all';
+                    toggleAnalyticsFilterCols();
+                    renderAnalyticsSection();
+                });
+            }
+            populateAnalyticsYearSelect();
+        })();
 
         /* ============================================================
            SETTINGS
@@ -1244,6 +2012,12 @@
 
             var quickStock = e.target.closest('[data-quick-stock]');
             if (quickStock) { quickAddStock(quickStock.getAttribute('data-quick-stock'), 10); return; }
+
+            var editCatBtn = e.target.closest('[data-edit-cat]');
+            if (editCatBtn) { editCategory(editCatBtn.getAttribute('data-edit-cat')); return; }
+
+            var deleteCatBtn = e.target.closest('[data-delete-cat]');
+            if (deleteCatBtn) { deleteCategory(deleteCatBtn.getAttribute('data-delete-cat')); return; }
         });
 
         /* ============================================================
@@ -1251,22 +2025,41 @@
            ============================================================ */
         document.getElementById('formProduct').addEventListener('submit', saveProduct);
         document.getElementById('formStoreSettings').addEventListener('submit', saveStoreSettings);
+        document.getElementById('formCategory').addEventListener('submit', saveCategory);
 
         document.getElementById('searchProduct').addEventListener('input', renderProductsTable);
         document.getElementById('filterCategory').addEventListener('change', renderProductsTable);
         document.getElementById('filterStatus').addEventListener('change', renderOrdersTable);
+        document.getElementById('searchCategory').addEventListener('input', renderCategoriesList);
 
         document.getElementById('btnExportCSV').addEventListener('click', exportOrdersCSV);
         document.getElementById('btnPrintReport').addEventListener('click', printSalesReport);
         document.getElementById('btnExportCSV2').addEventListener('click', exportOrdersCSV);
         document.getElementById('btnPrintReport2').addEventListener('click', printSalesReport);
-        document.getElementById('btnAddCategory').addEventListener('click', addNewCategory);
+        document.getElementById('btnSaveThreshold').addEventListener('click', saveThreshold);
+        document.getElementById('btnCancelEditCat').addEventListener('click', resetCategoryForm);
 
         document.getElementById('tabFileBtn').addEventListener('click', function () { switchImgInput('file'); });
         document.getElementById('tabUrlBtn').addEventListener('click', function () { switchImgInput('url'); });
 
         document.getElementById('btnToggleSidebar').addEventListener('click', function () {
             document.getElementById('sidebar').classList.toggle('show');
+            document.getElementById('sidebarOverlay').classList.toggle('show');
+        });
+
+        document.getElementById('sidebarOverlay').addEventListener('click', function () {
+            document.getElementById('sidebar').classList.remove('show');
+            this.classList.remove('show');
+        });
+
+        // Close sidebar on nav click (mobile)
+        document.querySelectorAll('.nav-btn[data-section], .nav-btn[data-nav]').forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                if (window.innerWidth < 992) {
+                    document.getElementById('sidebar').classList.remove('show');
+                    document.getElementById('sidebarOverlay').classList.remove('show');
+                }
+            });
         });
 
         document.getElementById('btnLogout').addEventListener('click', function () {
@@ -1306,23 +2099,34 @@
             });
         }
 
+        // Color Picker
+        document.querySelectorAll('#colorPicker .color-opt').forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('#colorPicker .color-opt').forEach(function(b) { b.classList.remove('active'); b.style.borderColor = 'transparent'; });
+                btn.classList.add('active');
+                btn.style.borderColor = btn.getAttribute('data-color');
+                document.getElementById('newCatColor').value = btn.getAttribute('data-color');
+            });
+        });
+
         /* ============================================================
            INIT
            ============================================================ */
-        (async function init() {
+        (function init() {
             var pl = document.getElementById('preloader');
             var hidePl = function () { if (pl) pl.classList.add('hidden'); };
             setTimeout(hidePl, 150);
 
             if (typeof AdminAuth !== 'undefined' && AdminAuth.requireAdmin) {
-                try { await AdminAuth.requireAdmin(); } catch (e) {}
+                AdminAuth.requireAdmin();
             }
 
             try { modalProd = new bootstrap.Modal(document.getElementById('modalProduct')); } catch (e) {}
             try { modalOrder = new bootstrap.Modal(document.getElementById('modalOrderDetail')); } catch (e) {}
 
-            await loadProducts();
-            await loadOrders();
+            loadProducts();
+            loadCategories();
+            loadOrders();
             hidePl();
         })();
     });

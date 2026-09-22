@@ -161,7 +161,7 @@ document.addEventListener('DOMContentLoaded', function () {
   var y = document.getElementById('currentYear');
   if (y) y.textContent = new Date().getFullYear();
 
-  /* ── 10. Portfolio Modal ── */
+  /* ── 10. Portfolio Modal & Category Filter ── */
   var portBtns = document.querySelectorAll('.port-detail-btn');
   if (portBtns.length) {
     var modal = document.getElementById('portfolioModal');
@@ -189,4 +189,88 @@ document.addEventListener('DOMContentLoaded', function () {
       });
     });
   }
+
+  // Portfolio Category Filtering
+  var filterBtns = document.querySelectorAll('.port-filter-btn');
+  var portItems = document.querySelectorAll('.port-item');
+  if (filterBtns.length && portItems.length) {
+    filterBtns.forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        filterBtns.forEach(function (b) { b.classList.remove('active'); });
+        btn.classList.add('active');
+        var filter = btn.getAttribute('data-filter');
+        portItems.forEach(function (item) {
+          var cat = item.getAttribute('data-cat');
+          if (filter === 'all' || filter === cat) {
+            item.style.display = 'block';
+          } else {
+            item.style.display = 'none';
+          }
+        });
+      });
+    });
+  }
+
+  /* ── 11. Activity Modal ── */
+  var actBtns = document.querySelectorAll('.btn-activity-modal');
+  if (actBtns.length) {
+    var actModal = document.getElementById('activityModal');
+    actBtns.forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var title = btn.getAttribute('data-title') || '';
+        var date = btn.getAttribute('data-date') || '';
+        var desc = btn.getAttribute('data-desc') || '';
+        var icon = btn.getAttribute('data-icon') || 'fas fa-calendar-check';
+        var img = btn.getAttribute('data-img') || '';
+        
+        var lbl = document.getElementById('activityModalLabel');
+        var mDate = document.getElementById('actModalDate');
+        var mDesc = document.getElementById('actModalDesc');
+        var mIcon = document.getElementById('actModalIcon');
+        var mImg = document.getElementById('actModalImg');
+
+        if (lbl) lbl.textContent = title;
+        if (mDate) mDate.textContent = date;
+        if (mDesc) mDesc.textContent = desc;
+        if (mIcon) mIcon.innerHTML = '<i class="' + icon + '"></i>';
+        if (mImg && img) mImg.src = img;
+
+        if (actModal && typeof bootstrap !== 'undefined' && bootstrap.Modal) {
+          var bsModal = bootstrap.Modal.getOrCreateInstance(actModal);
+          bsModal.show();
+        }
+      });
+    });
+  }
+
+  /* ── 12. Article Reader Modal ── */
+  var artBtns = document.querySelectorAll('.btn-article-reader');
+  if (artBtns.length) {
+    var artModal = document.getElementById('articleModal');
+    artBtns.forEach(function (btn) {
+      btn.addEventListener('click', function (e) {
+        e.preventDefault();
+        var title = btn.getAttribute('data-title') || '';
+        var cat = btn.getAttribute('data-category') || '';
+        var date = btn.getAttribute('data-date') || '';
+        var content = btn.getAttribute('data-content') || '';
+
+        var lbl = document.getElementById('articleModalLabel');
+        var mCat = document.getElementById('artModalCategory');
+        var mDate = document.getElementById('artModalDate');
+        var mContent = document.getElementById('artModalContent');
+
+        if (lbl) lbl.textContent = title;
+        if (mCat) mCat.textContent = cat;
+        if (mDate) mDate.innerHTML = date;
+        if (mContent) mContent.innerHTML = content;
+
+        if (artModal && typeof bootstrap !== 'undefined' && bootstrap.Modal) {
+          var bsModal = bootstrap.Modal.getOrCreateInstance(artModal);
+          bsModal.show();
+        }
+      });
+    });
+  }
 });
+

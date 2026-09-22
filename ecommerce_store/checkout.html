@@ -69,6 +69,12 @@
                                         <div class="col-12">
                                             <label class="form-label fw-semibold" style="font-size:.85rem">Alamat Lengkap *</label>
                                             <textarea class="form-control" id="custAddress" rows="3" placeholder="Jl. Contoh No. 123, Kelurahan, Kecamatan, Kota, Provinsi, Kode Pos" required></textarea>
+                                            <div class="d-flex align-items-center gap-2 mt-1">
+                                                <small class="text-muted" style="font-size:.78rem" id="locationInfo"></small>
+                                                <button type="button" class="btn btn-link btn-sm p-0 text-decoration-none" id="btnRefreshLocation" style="font-size:.78rem;color:var(--terracotta)">
+                                                    <i class="fas fa-sync-alt me-1"></i>Update Lokasi
+                                                </button>
+                                            </div>
                                         </div>
                                         <div class="col-md-6">
                                             <label class="form-label fw-semibold" style="font-size:.85rem">Email (Opsional)</label>
@@ -311,6 +317,97 @@
 
         renderSummary();
         document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+        // Pre-fill address from saved location
+        var savedLocation = JSON.parse(localStorage.getItem('benangestetik_user_location') || 'null');
+        if (savedLocation && savedLocation.address) {
+            var addressField = document.getElementById('custAddress');
+            if (addressField && !addressField.value.trim()) {
+                addressField.value = savedLocation.address;
+                addressField.style.borderColor = 'var(--success)';
+                addressField.style.backgroundColor = '#f0f0f0';
+                setTimeout(function() { addressField.style.borderColor = ''; }, 2000);
+            }
+        }
+
+        // Also pre-fill name, email, and phone from session
+        var sessionUser = JSON.parse(localStorage.getItem('benangestetik_user_session') || 'null');
+        if (sessionUser) {
+            if (sessionUser.name) {
+                var nameField = document.getElementById('custName');
+                if (nameField && !nameField.value.trim()) { nameField.value = sessionUser.name; nameField.readOnly = true; nameField.style.backgroundColor = '#f0f0f0'; }
+            }
+            if (sessionUser.email) {
+                var emailField = document.getElementById('custEmail');
+                if (emailField && !emailField.value.trim()) { emailField.value = sessionUser.email; emailField.readOnly = true; emailField.style.backgroundColor = '#f0f0f0'; }
+            }
+            if (sessionUser.phone) {
+                var phoneField = document.getElementById('custPhone');
+                if (phoneField && !phoneField.value.trim()) { phoneField.value = sessionUser.phone; phoneField.readOnly = true; phoneField.style.backgroundColor = '#f0f0f0'; }
+            }
+        }
+
+        // Show location info if available
+        var locationInfo = document.getElementById('locationInfo');
+        if (savedLocation) {
+            var timeDiff = Date.now() - new Date(savedLocation.detectedAt).getTime();
+            var hours = Math.floor(timeDiff / 3600000);
+            if (hours < 24) {
+                locationInfo.textContent = 'Lokasi terdeteksi ' + (hours > 0 ? hours + ' jam lalu' : 'baru saja');
+            } else {
+                locationInfo.textContent = 'Lokasi terdeteksi lebih dari 1 hari lalu';
+            }
+        } else {
+            locationInfo.textContent = 'Belum ada lokasi tersimpan';
+        }
+
+        // Refresh location button
+        document.getElementById('btnRefreshLocation').addEventListener('click', function() {
+            if (!navigator.geolocation) {
+                alert('Geolocation tidak didukung browser Anda.');
+                return;
+            }
+
+            var btn = this;
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin me-1"></i>Update...';
+
+            navigator.geolocation.getCurrentPosition(
+                async function (position) {
+                    var lat = position.coords.latitude;
+                    var lng = position.coords.longitude;
+
+                    try {
+                        var response = await fetch('https://nominatim.openstreetmap.org/reverse?format=json&lat=' + lat + '&lon=' + lng + '&zoom=18&addressdetails=1&accept-language=id', {
+                            headers: { 'User-Agent': 'BenangEstetikCo/1.0' }
+                        });
+                        var data = await response.json();
+                        if (data && data.display_name) {
+                            document.getElementById('custAddress').value = data.display_name;
+                        }
+                    } catch (e) {
+                        document.getElementById('custAddress').value = lat.toFixed(6) + ', ' + lng.toFixed(6);
+                    }
+
+                    localStorage.setItem('benangestetik_user_location', JSON.stringify({
+                        latitude: lat,
+                        longitude: lng,
+                        address: document.getElementById('custAddress').value,
+                        detectedAt: new Date().toISOString()
+                    }));
+
+                    locationInfo.textContent = 'Lokasi baru saja diupdate';
+                    btn.disabled = false;
+                    btn.innerHTML = '<i class="fas fa-sync-alt me-1"></i>Update Lokasi';
+                },
+                function (error) {
+                    alert('Gagal mendeteksi lokasi. Pastikan akses lokasi diizinkan.');
+                    btn.disabled = false;
+                    btn.innerHTML = '<i class="fas fa-sync-alt me-1"></i>Update Lokasi';
+                },
+                { enableHighAccuracy: true, timeout: 15000, maximumAge: 0 }
+            );
+        });
     });
     </script>
 
